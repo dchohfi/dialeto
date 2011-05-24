@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>S3 Link:</b>
+  <%= link_to 'File on S3', @propaganda.s3_url %>
+</p>
+
+<p>
+  <b>Nome:</b>
+  <%= @propaganda.nome %>
+</p>
+
+
+<%= link_to 'Edit', edit_propaganda_path(@propaganda) %> |
+<%= link_to 'Back', propagandas_path %>

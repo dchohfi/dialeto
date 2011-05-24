@@ -1,0 +1,23 @@
+<h1>Listing perfis</h1>
+
+<table>
+  <tr>
+    <th>Descricao</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @perfis.each do |perfil| %>
+  <tr>
+    <td><%= perfil.descricao %></td>
+    <td><%= link_to 'Show', perfil %></td>
+    <td><%= link_to 'Edit', edit_perfil_path(perfil) %></td>
+    <td><%= link_to 'Destroy', perfil, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Perfil', new_perfil_path %>
