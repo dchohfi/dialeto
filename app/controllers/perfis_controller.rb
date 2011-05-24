@@ -32,7 +32,7 @@ class PerfisController < ApplicationController
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @perfil }
-      format.json  { render :json => @perfil
+      format.json  { render :json => @perfil }
     end
   end
 
