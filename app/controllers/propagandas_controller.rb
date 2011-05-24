@@ -43,7 +43,8 @@ class PropagandasController < ApplicationController
   def create
     uploaded_file = params[:propaganda][:file]
     @propaganda = Propaganda.new
-    @propaganda.local_path = Propaganda.store_locally(uploaded_file)
+    @propaganda.local_path = uploaded_file.original_filename
+    @propaganda.temp = uploaded_file
     @propaganda.nome = params[:propaganda][:nome]
 
     respond_to do |format|
