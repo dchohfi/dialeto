@@ -1,3 +1,5 @@
+require 'tempfile'
+
 AWS::S3::Base.establish_connection!(
   :access_key_id => 'AKIAJTYLILIR2LG6E7JA',
   :secret_access_key => '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'

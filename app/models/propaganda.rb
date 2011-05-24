@@ -1,5 +1,5 @@
 class Propaganda < ActiveRecord::Base
-  LOCAL_STORE_DIRECTORY = Rails.root.join('tmp', 'uploads')
+  LOCAL_STORE_DIRECTORY = Rails.root.join('./tmp', 'uploads')
   S3_ROOT_URL = 'http://s3.amazonaws.com/dialeto_bucket/'
   after_save :create_job
   
@@ -14,7 +14,7 @@ class Propaganda < ActiveRecord::Base
   end
   
   def upload_to_s3
-    S3Upload.store(s3_key, open(local_path), :access => :public_read)
+    S3Upload.store(s3_key, File.open(local_path), :access => :public_read)
   end
   
   def s3_url

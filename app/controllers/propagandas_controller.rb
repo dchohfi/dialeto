@@ -44,7 +44,7 @@ class PropagandasController < ApplicationController
     uploaded_file = params[:propaganda][:file]
     @propaganda = Propaganda.new
     @propaganda.local_path = Propaganda.store_locally(uploaded_file)
-    @propaganda.nome =  params[:propaganda][:nome]
+    @propaganda.nome = params[:propaganda][:nome]
 
     respond_to do |format|
       if @propaganda.save
