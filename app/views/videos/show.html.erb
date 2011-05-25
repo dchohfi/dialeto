@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Nome:</b>
+  <%= @video.nome %>
+</p>
+
+<p>
+  <b>Descricao:</b>
+  <%= @video.descricao %>
+</p>
+
+<p>
+  <b>Perfil:</b>
+  <%= @video.perfil.descricao %>
+</p>
+
+<p>
+	<b>Categorias:</b>
+	<%= @video.categorias.count %>
+</p>
+
+<p>
+  <b>S3 Link:</b>
+  <%= link_to @video.local_path, @video.s3_url %>
+</p>
+
+
+<%= link_to 'Edit', edit_video_path(@video) %> |
+<%= link_to 'Back', videos_path %>

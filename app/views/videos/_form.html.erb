@@ -1,0 +1,15 @@
+<%= simple_form_for(@video, :html => {:multipart => true}) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="inputs">
+    <%= f.input :nome, :required => true %>
+    <%= f.input :descricao %>
+    <%= f.association :perfil, :include_blank => false, :label_method => :descricao %>
+		<%= f.label 'Arquivo'%> <%= f.file_field :file, :required => true %>
+    <%= f.association :categorias, :as => :check_boxes, :label_method => :descricao %>
+  </div>
+
+  <div class="actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

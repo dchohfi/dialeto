@@ -1,4 +1,6 @@
 Dialeto::Application.routes.draw do
+  resources :videos
+
   resources :propagandas
 
   resources :categorias

@@ -1,4 +1,4 @@
-<%= form_for(@categoria) do |f| %>
+<%= simple_form_for(@categoria) do |f| %>
   <% if @categoria.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@categoria.errors.count, "error") %> prohibited this categoria from being saved:</h2>
@@ -10,12 +10,6 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :descricao %><br />
-    <%= f.text_field :descricao %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+	<%= f.input :descricao, :label => 'Descrição' %>
+	<%= f.button :submit %>
 <% end %>

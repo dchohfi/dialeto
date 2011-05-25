@@ -42,10 +42,8 @@ class PropagandasController < ApplicationController
   # POST /propagandas.xml
   def create
     uploaded_file = params[:propaganda][:file]
-    @propaganda = Propaganda.new
+    @propaganda = Propaganda.new(params[:propaganda])
     @propaganda.local_path = uploaded_file.original_filename
-    @propaganda.temp = uploaded_file
-    @propaganda.nome = params[:propaganda][:nome]
 
     respond_to do |format|
       if @propaganda.save

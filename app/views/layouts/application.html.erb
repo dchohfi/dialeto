@@ -3,13 +3,13 @@
   <head>
     <title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
     <%= stylesheet_link_tag "application" %>
-	<%= stylesheet_link_tag "buttons" %>
     <%= javascript_include_tag :defaults %>
     <%= csrf_meta_tag %>
     <%= yield(:head) %>
   </head>
   <body>
     <div id="container">
+			<%= menu_principal %>
       <div id="user_nav">
         <% if user_signed_in? %>
           Signed in as <%= current_user.email %>.<br />
