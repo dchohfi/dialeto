@@ -1,5 +1,6 @@
 module ApplicationHelper
   def menu_principal
+    return unless user_signed_in?
     menu = %w(perfil categoria propaganda video)
     menu_principal = "<ul>"
     menu.each do |item|
