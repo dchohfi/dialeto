@@ -43,7 +43,7 @@ class VideosController < ApplicationController
     uploaded_file = params[:video][:file]
     @video = Video.new(params[:video])
     @video.local_path = uploaded_file.original_filename
-
+    
     respond_to do |format|
       if @video.save
         format.html { redirect_to(@video, :notice => 'Video was successfully created.') }

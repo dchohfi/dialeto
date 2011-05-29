@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110525014925) do
+ActiveRecord::Schema.define(:version => 20110529125703) do
 
   create_table "categorias", :force => true do |t|
     t.string   "descricao"
@@ -18,20 +18,15 @@ ActiveRecord::Schema.define(:version => 20110525014925) do
     t.datetime "updated_at"
   end
 
-  create_table "delayed_jobs", :force => true do |t|
-    t.integer  "priority",   :default => 0
-    t.integer  "attempts",   :default => 0
-    t.text     "handler"
-    t.text     "last_error"
-    t.datetime "run_at"
-    t.datetime "locked_at"
-    t.datetime "failed_at"
-    t.string   "locked_by"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table "categorias_perfis", :id => false, :force => true do |t|
+    t.integer "perfil_id"
+    t.integer "categoria_id"
   end
 
-  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
+  create_table "categorias_propagandas", :id => false, :force => true do |t|
+    t.integer "categoria_id"
+    t.integer "propaganda_id"
+  end
 
   create_table "perfis", :force => true do |t|
     t.string   "descricao"
@@ -60,6 +55,8 @@ ActiveRecord::Schema.define(:version => 20110525014925) do
     t.string   "authentication_token"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "perfil_id"
+    t.string   "role"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

@@ -1,10 +1,6 @@
-class Propaganda < ActiveRecord::Base
-  
-  has_and_belongs_to_many :categorias
-  
+class S3Uploader
   S3_ROOT_URL = 'http://s3.amazonaws.com/dialeto_bucket/'
-  before_save :upload_to_s3
-  attr_accessor :file
+  attr_accessor :file, :local_path
 
   def s3_key
     local_path
@@ -17,5 +13,4 @@ class Propaganda < ActiveRecord::Base
   def s3_url
     S3_ROOT_URL + s3_key
   end
-  
 end

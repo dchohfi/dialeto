@@ -10,17 +10,19 @@
   <body>
     <div id="container">
 			<%= menu_principal %>
-      <div id="user_nav">
-        <% if user_signed_in? %>
-          Signed in as <%= current_user.email %>.<br />
-          Not you? <%= link_to "Sign out", destroy_user_session_path %>
-        <% else %>
-          <%= link_to "Sign In", new_user_session_path %>
-        <% end %>
-      </div>
       <% flash.each do |name, msg| %>
         <%= content_tag :div, msg, :id => "flash_#{name}" %>
       <% end %>
+      <% if user_signed_in? %>
+        <div class="admin">
+          <% if can? :manage, @users %>
+            <%= link_to "Add User", new_user_path %>
+          <% end %>
+          <%= link_to "My Account", edit_user_registration_path %>
+          <%= link_to "Logout", destroy_user_session_path %>
+        </div>
+      <% end %>
+      <%= content_tag :h1, yield(:title) if show_title? %>
       <%= yield %>
     </div>
   </body>

@@ -3,7 +3,6 @@ class CreatePropagandas < ActiveRecord::Migration
     create_table :propagandas do |t|
       t.string :local_path
       t.string :nome
-
       t.timestamps
     end
   end

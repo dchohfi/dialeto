@@ -9,5 +9,6 @@ gem 'sqlite3'
 gem 'devise'
 gem 'rake', '0.8.7'
 gem 'aws-s3', :require => 'aws/s3'
-gem 'delayed_job'
-gem "simple_form"
+gem 'simple_form'
+gem 'cancan'
+gem 'nifty-generators'
