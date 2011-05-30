@@ -8,6 +8,7 @@ class PropagandasController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @propagandas }
+      format.json { render :json => @propagandas}
     end
   end
 
@@ -15,10 +16,10 @@ class PropagandasController < ApplicationController
   # GET /propagandas/1.xml
   def show
     @propaganda = Propaganda.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @propaganda }
+      format.json { render :json => @propaganda.to_json( :methods => [:image_url] )  }
     end
   end
 
@@ -41,10 +42,7 @@ class PropagandasController < ApplicationController
   # POST /propagandas
   # POST /propagandas.xml
   def create
-    uploaded_file = params[:propaganda][:file]
     @propaganda = Propaganda.new(params[:propaganda])
-    @propaganda.local_path = uploaded_file.original_filename
-
     respond_to do |format|
       if @propaganda.save
         format.html { redirect_to(@propaganda, :notice => 'Propaganda was successfully created.') }

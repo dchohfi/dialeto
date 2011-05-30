@@ -25,7 +25,7 @@ class VideosController < ApplicationController
   # GET /videos/new.xml
   def new
     @video = Video.new
-
+    3.times {@video.images.build}
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @video }
@@ -35,14 +35,16 @@ class VideosController < ApplicationController
   # GET /videos/1/edit
   def edit
     @video = Video.find(params[:id])
+    tag_list = ''
+    @video.tags.each{|tag| tag_list << "#{tag.name}, "}
+    @video.tag_list = tag_list
+    logger.info tag_list
   end
 
   # POST /videos
   # POST /videos.xml
   def create
-    uploaded_file = params[:video][:file]
     @video = Video.new(params[:video])
-    @video.local_path = uploaded_file.original_filename
     
     respond_to do |format|
       if @video.save
@@ -58,9 +60,7 @@ class VideosController < ApplicationController
   # PUT /videos/1
   # PUT /videos/1.xml
   def update
-    uploaded_file = params[:video][:file]
     @video = Video.find(params[:id])
-    @video.local_path = uploaded_file.original_filename
     respond_to do |format|
       if @video.update_attributes(params[:video])
         format.html { redirect_to(@video, :notice => 'Video was successfully updated.') }

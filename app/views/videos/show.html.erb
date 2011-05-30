@@ -16,10 +16,13 @@
 </p>
 
 <p>
-  <b>S3 Link:</b>
-  <%= link_to @video.local_path, @video.s3_url %>
+	<b>Imagens:</b>
+	<% @video.images.each do |builder| %>		
+		<p>
+			<%= image_tag builder.image_url %>
+		</p>
+	<% end %>
 </p>
-
 
 <%= link_to 'Edit', edit_video_path(@video) %> |
 <%= link_to 'Back', videos_path %>

@@ -1,21 +1,19 @@
+# encoding: utf-8
 class Propaganda < ActiveRecord::Base
   
+  has_attached_file :image,
+      :storage => :s3,
+      :s3_credentials => "#{RAILS_ROOT}/config/s3.yml",
+      :path => "/:style/:id/:filename",
+      :bucket => 'dialeto_propaganda'
+  
+  validates_presence_of :nome, :nome => "Nome não pode ser nulo"
+  validates_uniqueness_of :nome, :message => "Nome já cadastrado"
+  validates_attachment_presence :image
+
   has_and_belongs_to_many :categorias
   
-  S3_ROOT_URL = 'http://s3.amazonaws.com/dialeto_bucket/'
-  before_save :upload_to_s3
-  attr_accessor :file
-
-  def s3_key
-    local_path
+  def image_url
+    image.url
   end
-  
-  def upload_to_s3
-    S3Upload.store(s3_key, @file.read, :access => :public_read)
-  end
-  
-  def s3_url
-    S3_ROOT_URL + s3_key
-  end
-  
 end

@@ -1,36 +1,31 @@
 <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
   <%= devise_error_messages! %>
 
-  <p><%= f.label :email %><br />
-  <%= f.text_field :email %></p>
+	<div class="inputs">
+		<%= f.input :email %>
+		<%= f.input :password, :hint => 'Deixe em branco se não quiser modificar.', :required => false %>
+		<%= f.input :password_confirmation, :label => 'Confirm' %>
+		<%= f.input :current_password, :label => 'Atual', :required => true, :hint => 'Precisamos da sua senha atual.' %>
+		<%= f.association :perfil, :label_method => :descricao, :include_blank => false, :required => true %>
+		<% if can? :manage, @users %>
+		<p><%= f.label "Role" %><%= f.collection_radio :role, User::ROLES, :to_s, :humanize %></p>
+		<% end %>
+		<p><%= f.label :token_authentication_key, :label => "Token" %>
+		<%= resource.authentication_token.blank? ? "" : resource.authentication_token %></p>
+		<p><%= link_to "Gerar Token", token_authentications_path(:user_id => resource.id), :method => :post, :confirm => "Você tem certeza?" %>
+		<%= link_to "Deletar Token", token_authentication_path(resource), :method => :delete, :confirm => "Você tem certeza?" %></p>
 
-  <p><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-  <%= f.password_field :password %></p>
-
-  <p><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></p>
-
-  <p><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-  <%= f.password_field :current_password %></p>
-
-  <p><%= f.label :token_authentication_key %><br />
-  <%= resource.authentication_token.blank? ? "" : resource.authentication_token %></p>
-
-  <p><%= link_to "Generate Token", token_authentications_path(:user_id => resource.id), :method => :post, :confirm => "Are you sure?" %>
-  <%= link_to "Delete Token", token_authentication_path(resource), :method => :delete, :confirm => "Are you sure?" %></p>
-
-  <% if resource.authentication_token %>
-    <p>You can use this url to login<br />
-    <%= link_to "http://localhost:3000#{root_path(:auth_token => resource.authentication_token)}", root_path(:auth_token => resource.authentication_token) %></p>
-  <% end %>
+		 <% if resource.authentication_token %>
+		   <p>Você pode usar essa url para se logar.<br />
+		   <%= link_to "http://localhost:3000#{root_path(:auth_token => resource.authentication_token)}", root_path(:auth_token => resource.authentication_token) %></p>
+		 <% end %>
+	</div>
   
-  <% if can? :manage, @users %>
-  <p><%= f.label :role %>: <%= f.collection_select :role, User::ROLES, :to_s, :humanize, {:include_blank => true} %></p>
-  <% end %>
-  
-  <p><%= f.submit "Update" %></p>
+  <div class="actions">
+	  <%= f.button :submit, :label => "Update" %>
+	</div>
 <% end %>
 
 <%= link_to "Back", :back %>
