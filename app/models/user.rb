@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable
 
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :perfil, :role
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :perfil_id, :role
 
   ROLES = %w[admin user]
     

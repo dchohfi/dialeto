@@ -1,15 +1,5 @@
 <%= simple_form_for(@categoria) do |f| %>
-  <% if @categoria.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@categoria.errors.count, "error") %> prohibited this categoria from being saved:</h2>
-
-      <ul>
-      <% @categoria.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
 	<%= f.input :descricao, :label => 'Descrição' %>
+	<%= f.association :perfis, :as => :check_boxes, :label_method => :descricao %>
 	<%= f.button :submit %>
 <% end %>

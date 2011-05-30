@@ -1,25 +1,13 @@
-<% form_for @propaganda, :html => {:multipart => true} do |f|%>
-  <% if @propaganda.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@propaganda.errors.count, "error") %> prohibited this propaganda from being saved:</h2>
+<%= simple_form_for(@propaganda, :html => {:multipart => true}) do |f| %>
+  <%= f.error_notification %>
 
-      <ul>
-      <% @propaganda.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <div class="inputs">
+    <%= f.input :nome, :required => true %>
+		<%= f.label 'Arquivo'%> <%= f.file_field :image, :required => true %>
+    <%= f.association :categorias, :as => :check_boxes, :label_method => :descricao %>
+  </div>
 
-  <div class="field">
-    <%= f.label :nome %><br />
-    <%= f.text_field :nome %>
-  </div>
-  <div class="field">
-    <%= f.label 'Arquivo' %><br />
-		<%= f.file_field :file %>
-  </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.button :submit %>
   </div>
 <% end %>

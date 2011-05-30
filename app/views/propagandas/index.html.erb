@@ -2,7 +2,7 @@
 
 <table>
   <tr>
-    <th>Local path</th>
+    <th>Imagem</th>
     <th>Nome</th>
     <th></th>
     <th></th>
@@ -11,8 +11,8 @@
 
 <% @propagandas.each do |propaganda| %>
   <tr>
-    <td><%= propaganda.local_path %></td>
     <td><%= propaganda.nome %></td>
+    <td><%= propaganda.image.name %></td>
     <td><%= link_to 'Show', propaganda %></td>
     <td><%= link_to 'Edit', edit_propaganda_path(propaganda) %></td>
     <td><%= link_to 'Destroy', propaganda, :confirm => 'Are you sure?', :method => :delete %></td>

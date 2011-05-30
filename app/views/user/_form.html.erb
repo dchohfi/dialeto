@@ -1,16 +1,15 @@
-<%= f.error_messages %>
+<%= f.error_notification %>
 
-<p><%= f.label :email %><br />
-<%= f.text_field :email %></p>
+<div class="inputs">
+	<%= f.input :email, :required => true %>
+	<%= f.input :password, :required => true %>
+	<%= f.input :password_confirmation, :label => 'Confirm', :required => true %>
+	<%= f.association :perfil, :label_method => :descricao %>
+	<% if can? :manage, @users %>
+	<p><%= f.label :role %><%= f.collection_select :role, User::ROLES, :to_s, :humanize, {:include_blank => true} %></p>
+	<% end %>
+</div>
 
-<p><%= f.label :password %><br />
-<%= f.password_field :password %></p>
-
-<p><%= f.label :password_confirmation %><br />
-<%= f.password_field :password_confirmation %></p>
-
-<% if can? :manage, @users %>
-<p><%= f.label :role %>: <%= f.collection_select :role, User::ROLES, :to_s, :humanize, {:include_blank => true} %></p>
-
-<% end %>
-<p><%= f.submit "Submit" %></p>
+<div class="actions">
+  <%= f.button :submit %>
+</div>

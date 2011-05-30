@@ -5,10 +5,7 @@
   <%= @propaganda.nome %>
 </p>
 
-<p>
-  <b>S3 Link:</b>
-  <%= link_to @propaganda.local_path, @propaganda.s3_url %>
-</p>
+<%= image_tag @propaganda.image.url %>
 
 <%= link_to 'Edit', edit_propaganda_path(@propaganda) %> |
 <%= link_to 'Back', propagandas_path %>
