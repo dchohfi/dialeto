@@ -22,7 +22,6 @@
           <%= link_to "Logout", destroy_user_session_path %>
         </div>
       <% end %>
-      <%= content_tag :h1, yield(:title) if show_title? %>
       <%= yield %>
     </div>
   </body>

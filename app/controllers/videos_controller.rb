@@ -1,23 +1,41 @@
 class VideosController < ApplicationController
+  before_filter :authenticate_user!
   # GET /videos
-  # GET /videos.xml
+  # GET /videos.json
   def index
-    @videos = Video.all
+    
+    if params[:id_categoria]
+      @videos = Categoria.find(params[:id_categoria]).videos
+    elsif can? :manage, Video
+      @videos = Video.all
+    else
+      @videos = current_user.videos
+    end
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @videos }
+      format.json  { render :json => @videos.to_json( :methods => [:tag_list, :images_url, :authenticated_media_url, :include => {:categorias => {:only => [ :id]}}])}
     end
   end
 
   # GET /videos/1
-  # GET /videos/1.xml
+  # GET /videos/1.json
   def show
     @video = Video.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @video }
+    if(!(can? :manage, Video))
+      @video = nil unless current_user.videos.include? @video
+    end
+
+    if @video
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json  { render :json => @video.to_json( :methods => [:tag_list, :images_url, :authenticated_media_url, :include => {:categorias => {:only => [ :id]}}])}
+      end
+    elsif
+      respond_to do |format|
+        format.html { redirect_to(videos_url) }
+      end
     end
   end
 
@@ -25,7 +43,13 @@ class VideosController < ApplicationController
   # GET /videos/new.xml
   def new
     @video = Video.new
-    3.times {@video.images.build}
+    images = []
+    3.times do
+      image = Image.new
+      image.owner = @video
+      images << image
+    end
+    @video.images = images
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @video }
@@ -35,10 +59,6 @@ class VideosController < ApplicationController
   # GET /videos/1/edit
   def edit
     @video = Video.find(params[:id])
-    tag_list = ''
-    @video.tags.each{|tag| tag_list << "#{tag.name}, "}
-    @video.tag_list = tag_list
-    logger.info tag_list
   end
 
   # POST /videos

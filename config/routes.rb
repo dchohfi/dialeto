@@ -2,7 +2,6 @@ Dialeto::Application.routes.draw do
   resources :videos
   resources :propagandas
   resources :categorias
-  resources :categoria
   resources :perfis
   
   devise_for :users, :controllers => {:registrations => "registrations"}
@@ -15,6 +14,14 @@ Dialeto::Application.routes.draw do
   resources :user, :controller => "user"
   
   resources :dashboard
+
+  match 'categorias/:id_categoria/propagandas' => 'propagandas#index'
+  match 'categorias/:id_categoria/videos' => 'videos#index'
+
+  # map.resources :categorias, :has_many => :images
+  # map.resources :videos, :has_many => :images
+
+  # match 'categorias/:id_categoria/videos(/:id_video)' => "controller#acao"
 
   root :to => "perfis#index"
 end

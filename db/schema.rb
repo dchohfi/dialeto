@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110529235338) do
+ActiveRecord::Schema.define(:version => 20110601030609) do
 
   create_table "categorias", :force => true do |t|
     t.string   "descricao"
@@ -18,14 +18,14 @@ ActiveRecord::Schema.define(:version => 20110529235338) do
     t.datetime "updated_at"
   end
 
-  create_table "categorias_perfis", :id => false, :force => true do |t|
-    t.integer "perfil_id"
-    t.integer "categoria_id"
-  end
-
   create_table "categorias_propagandas", :id => false, :force => true do |t|
     t.integer "categoria_id"
     t.integer "propaganda_id"
+  end
+
+  create_table "categorias_videos", :id => false, :force => true do |t|
+    t.integer "categoria_id"
+    t.integer "video_id"
   end
 
   create_table "images", :force => true do |t|
@@ -33,7 +33,8 @@ ActiveRecord::Schema.define(:version => 20110529235338) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
-    t.integer  "video_id"
+    t.integer  "owner_id"
+    t.string   "owner_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -44,6 +45,11 @@ ActiveRecord::Schema.define(:version => 20110529235338) do
     t.datetime "updated_at"
   end
 
+  create_table "perfis_videos", :id => false, :force => true do |t|
+    t.integer "perfil_id"
+    t.integer "video_id"
+  end
+
   create_table "propagandas", :force => true do |t|
     t.string   "nome"
     t.datetime "created_at"
@@ -52,6 +58,10 @@ ActiveRecord::Schema.define(:version => 20110529235338) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.string   "media_file_name"
+    t.string   "media_content_type"
+    t.integer  "media_file_size"
+    t.datetime "media_updated_at"
   end
 
   create_table "taggings", :force => true do |t|
@@ -96,15 +106,12 @@ ActiveRecord::Schema.define(:version => 20110529235338) do
   create_table "videos", :force => true do |t|
     t.string   "nome"
     t.string   "descricao"
-    t.integer  "perfil_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "tag_list"
-  end
-
-  create_table "videos_categorias", :id => false, :force => true do |t|
-    t.integer "video_id"
-    t.integer "categoria_id"
+    t.string   "media_file_name"
+    t.string   "media_content_type"
+    t.integer  "media_file_size"
+    t.datetime "media_updated_at"
   end
 
 end

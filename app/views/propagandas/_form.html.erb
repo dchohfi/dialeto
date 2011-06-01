@@ -3,8 +3,9 @@
 
   <div class="inputs">
     <%= f.input :nome, :required => true %>
-		<%= f.label 'Arquivo'%> <%= f.file_field :image, :required => true %>
-    <%= f.association :categorias, :as => :check_boxes, :label_method => :descricao %>
+		<%= f.label 'Imagem'%> <%= f.file_field :image %></br></p>
+		<%= f.label 'Media'%> <%= f.file_field :media %></br></p>
+    <%= f.association :categorias, :label_method => :descricao %>
   </div>
 
   <div class="actions">

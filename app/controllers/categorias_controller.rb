@@ -1,14 +1,16 @@
 class CategoriasController < ApplicationController
   before_filter :authenticate_user!
   # GET /categorias
-  # GET /categorias.xml
   def index
-    @categorias = Categoria.all
+    if can? :manage, Categoria
+      @categorias = Categoria.all
+    elsif
+      @categorias = current_user.categorias
+    end
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @categorias }
-      format.json  { render :json => @categorias }
+      format.json  { render :json => @categorias.to_json( :methods => [:images_url] ) }
     end
   end
 
@@ -17,9 +19,19 @@ class CategoriasController < ApplicationController
   def show
     @categoria = Categoria.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @categoria }
+    if(!(can? :manage, Categoria))
+      @categoria = nil unless current_user.categorias.include? @categoria
+    end
+    
+    if @categoria
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json  { render :json => @categoria.to_json( :methods => [:images_url] ) }
+      end
+    elsif
+      respond_to do |format|
+        format.html { redirect_to(categorias_url) }
+      end
     end
   end
 
@@ -27,7 +39,13 @@ class CategoriasController < ApplicationController
   # GET /categorias/new.xml
   def new
     @categoria = Categoria.new
-
+    images = []
+    3.times do
+      image = Image.new
+      image.owner = @categoria
+      images << image
+    end
+    @categoria.images = images
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @categoria }
@@ -43,7 +61,6 @@ class CategoriasController < ApplicationController
   # POST /categorias.xml
   def create
     @categoria = Categoria.new(params[:categoria])
-
     respond_to do |format|
       if @categoria.save
         format.html { redirect_to(@categoria, :notice => 'Categoria was successfully created.') }

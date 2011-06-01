@@ -1,5 +1,14 @@
-<%= simple_form_for(@categoria) do |f| %>
+<%= simple_form_for(@categoria, :html => {:multipart => true}) do |f| %>
 	<%= f.input :descricao, :label => 'Descrição' %>
-	<%= f.association :perfis, :as => :check_boxes, :label_method => :descricao %>
+	
+	<%= f.fields_for :images do |builder| %>
+		<% if builder.object.new_record? %>
+			<p>
+				<%= builder.label :image, "Image File" %>
+				<%= builder.file_field :image %>
+			</p>
+		<% end %>
+	<% end %>
+	
 	<%= f.button :submit %>
 <% end %>

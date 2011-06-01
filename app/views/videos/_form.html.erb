@@ -4,7 +4,9 @@
   <div class="inputs">
     <%= f.input :nome, :required => true %>
     <%= f.input :descricao %>
-    <%= f.association :categorias, :as => :check_boxes, :label_method => :descricao %>
+    <%= f.association :categorias, :label_method => :descricao %>
+		<%= f.association :perfis, :label_method => :descricao %>
+		<%= f.label 'Media'%> <%= f.file_field :media %></br></p>
 		<%= f.input :tag_list, :label => "Tags"%>
 
 		<%= f.fields_for :images do |builder| %>
