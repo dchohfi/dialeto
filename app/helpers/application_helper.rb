@@ -1,12 +1,11 @@
 module ApplicationHelper
   def menu_principal
     return unless user_signed_in?
-    menu = %w(perfil categoria propaganda video)
-    menu_principal = "<ul>"
+    menu = %w(Perfil Categoria Propaganda Video)
+    menu_principal = ""
     menu.each do |item|
-      menu_principal << "<li>" + link_to(item, :controller => item.pluralize) + "</li>"
+      menu_principal << link_to(item, :controller => item.downcase.pluralize) + " | "
     end
-    menu_principal << "</ul>"
     raw menu_principal
   end
 end

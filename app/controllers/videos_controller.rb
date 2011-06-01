@@ -81,6 +81,8 @@ class VideosController < ApplicationController
   # PUT /videos/1.xml
   def update
     @video = Video.find(params[:id])
+    params[:video].delete(:media) if params[:video][:media].blank?
+    
     respond_to do |format|
       if @video.update_attributes(params[:video])
         format.html { redirect_to(@video, :notice => 'Video was successfully updated.') }

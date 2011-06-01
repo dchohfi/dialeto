@@ -1,25 +1,11 @@
-<h1>Listing propagandas</h1>
-
-<table>
-  <tr>
-    <th>Imagem</th>
-    <th>Nome</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
+<div class="propagandas">
 <% @propagandas.each do |propaganda| %>
-  <tr>
-    <td><%= propaganda.nome %></td>
-    <td><%= propaganda.image.name %></td>
-    <td><%= link_to 'Show', propaganda %></td>
-    <td><%= link_to 'Edit', edit_propaganda_path(propaganda) %></td>
-    <td><%= link_to 'Destroy', propaganda, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
+  <div class="listagem">
+    <h2><%= link_to propaganda.descricao, propaganda %></h2>
+    <%= link_to "Edit", edit_propaganda_path(propaganda) %> |
+    <%= link_to "Destroy", propaganda, :method => :delete, :confirm => "Are you sure?" %>
+  </div>
 <% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Propaganda', new_propaganda_path %>
+</div>
+</br>
+<%= link_to 'New propaganda', new_propaganda_path, :class => "new" %>

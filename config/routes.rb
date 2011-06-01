@@ -18,10 +18,5 @@ Dialeto::Application.routes.draw do
   match 'categorias/:id_categoria/propagandas' => 'propagandas#index'
   match 'categorias/:id_categoria/videos' => 'videos#index'
 
-  # map.resources :categorias, :has_many => :images
-  # map.resources :videos, :has_many => :images
-
-  # match 'categorias/:id_categoria/videos(/:id_video)' => "controller#acao"
-
   root :to => "perfis#index"
 end

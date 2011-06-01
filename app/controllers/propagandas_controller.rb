@@ -7,7 +7,7 @@ class PropagandasController < ApplicationController
     if params[:id_categoria]
       @propagandas = Categoria.find(params[:id_categoria]).propagandas
     elsif can? :manage, Propaganda
-        @propagandas = Propaganda.all
+      @propagandas = Propaganda.all
     elsif
       @propagandas = Propaganda.with_out_categoria
     end
@@ -57,6 +57,9 @@ class PropagandasController < ApplicationController
   # PUT /propagandas/1
   def update
     @propaganda = Propaganda.find(params[:id])
+    
+    params[:propaganda].delete(:media) if params[:propaganda][:media].blank?
+    params[:propaganda].delete(:image) if params[:propaganda][:image].blank?
 
     respond_to do |format|
       if @propaganda.update_attributes(params[:propaganda])

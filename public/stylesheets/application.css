@@ -4,27 +4,12 @@ body {
   font-size: 14px;
 }
 
-a img {
-  border: none;
-}
-
 a {
-  color: #0000FF;
+  color: #03507B;
+  text-decoration: none;
 }
-
-.clear {
-  clear: both;
-  height: 0;
-  overflow: hidden;
-}
-
-#container {
-  width: 75%;
-  margin: 0 auto;
-  background-color: #FFF;
-  padding: 20px 40px;
-  border: solid 1px black;
-  margin-top: 20px;
+a:hover {
+  text-decoration: underline;
 }
 
 #flash_notice, #flash_error, #flash_alert {
@@ -121,9 +106,6 @@ a {
   display: block;
   font-style: italic;
 }
-
-
-
 #container {
   -moz-border-radius:29px;
   -webkit-border-radius:29px;
@@ -135,7 +117,7 @@ a {
   -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=62);
   filter: alpha(opacity=0);
 	
-  width: 75%;
+  width: 50%;
   margin: 0 auto;
   background-color: #FFF;
   padding: 20px 40px;
@@ -147,6 +129,32 @@ a {
   margin-bottom: 10px;
   text-align: right;
 }
+
+.new {
+  background-color: #03507B;
+  color: #FFF;
+  padding: 5px 12px;
+  margin: 10px 0;
+  font-size: 16px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+
+.listagem {
+  border: solid 1px #777;
+  margin: 20px 0;
+  padding: 7px 12px;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+}
+
+.listagem h2 {
+  margin: 0;
+}
+
+
 .css1 { font-size: 1.0em; }
 .css2 { font-size: 1.2em; }
 .css3 { font-size: 1.4em; }
