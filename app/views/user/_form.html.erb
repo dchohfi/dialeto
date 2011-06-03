@@ -4,9 +4,9 @@
 	<%= f.input :email, :required => true %>
 	<%= f.input :password, :required => true %>
 	<%= f.input :password_confirmation, :label => 'Confirm', :required => true %>
-	<%= f.association :perfil, :label_method => :descricao %>
+	<%= f.association :perfil, :label_method => :descricao, :include_blank => false%>
 	<% if can? :manage, @users %>
-	<p><%= f.label :role %><%= f.collection_select :role, User::ROLES, :to_s, :humanize, {:include_blank => true} %></p>
+	<p><%= f.label :role %><%= f.collection_select :role, User::ROLES, :to_s, :humanize, {:include_blank => false} %></p>
 	<% end %>
 </div>
 
