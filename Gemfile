@@ -7,7 +7,6 @@ gem 'rails', '3.0.7'
 
 gem 'sqlite3'
 gem 'devise'
-gem 'rake', '0.8.7'
 gem 'simple_form'
 gem 'cancan'
 gem 'nifty-generators'
@@ -15,3 +14,7 @@ gem 'paperclip'
 gem 'aws-s3', :require => 'aws/s3'
 gem 'right_aws'
 gem 'acts-as-taggable-on'
+
+group :development do
+  gem 'rspec-rails', '2.5.0'
+end

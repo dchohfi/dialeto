@@ -28,4 +28,8 @@ class Video < ActiveRecord::Base
     AWS::S3::S3Object.url_for media.path, media.options[:bucket], options
   end
   
+  def to_json
+    super.to_json( :methods => [:tag_list, :images_url, :authenticated_media_url], :include => {:categorias => {:only => [:id]}})
+  end
+  
 end

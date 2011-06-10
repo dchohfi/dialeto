@@ -1,9 +1,7 @@
 class VideosController < ApplicationController
   before_filter :authenticate_user!
-  # GET /videos
-  # GET /videos.json
-  def index
-    
+
+  def index    
     if params[:id_categoria]
       @videos = Categoria.find(params[:id_categoria]).videos
     elsif can? :manage, Video
@@ -14,12 +12,10 @@ class VideosController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json  { render :json => @videos.to_json( :methods => [:tag_list, :images_url, :authenticated_media_url, :include => {:categorias => {:only => [ :id]}}])}
+      format.json  { render :json => @videos.to_json }
     end
   end
 
-  # GET /videos/1
-  # GET /videos/1.json
   def show
     @video = Video.find(params[:id])
 
@@ -30,7 +26,7 @@ class VideosController < ApplicationController
     if @video
       respond_to do |format|
         format.html # show.html.erb
-        format.json  { render :json => @video.to_json( :methods => [:tag_list, :images_url, :authenticated_media_url, :include => {:categorias => {:only => [ :id]}}])}
+        format.json  { render :json => @videos.to_json }
       end
     elsif
       respond_to do |format|
@@ -39,8 +35,6 @@ class VideosController < ApplicationController
     end
   end
 
-  # GET /videos/new
-  # GET /videos/new.xml
   def new
     @video = Video.new
     images = []
@@ -56,13 +50,10 @@ class VideosController < ApplicationController
     end
   end
 
-  # GET /videos/1/edit
   def edit
     @video = Video.find(params[:id])
   end
 
-  # POST /videos
-  # POST /videos.xml
   def create
     @video = Video.new(params[:video])
     
@@ -77,8 +68,6 @@ class VideosController < ApplicationController
     end
   end
 
-  # PUT /videos/1
-  # PUT /videos/1.xml
   def update
     @video = Video.find(params[:id])
     params[:video].delete(:media) if params[:video][:media].blank?
@@ -94,8 +83,6 @@ class VideosController < ApplicationController
     end
   end
 
-  # DELETE /videos/1
-  # DELETE /videos/1.xml
   def destroy
     @video = Video.find(params[:id])
     @video.destroy
