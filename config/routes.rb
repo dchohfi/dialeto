@@ -4,7 +4,7 @@ Dialeto::Application.routes.draw do
   resources :categorias
   resources :perfis
   
-  devise_for :users, :controllers => {:registrations => "registrations"}
+  devise_for :users, :controllers => {:registrations => "registrations", :sessions => "sessions"}
   devise_scope :user do
     get '/login' => 'devise/sessions#new'
     get '/logout' => 'devise/sessions#destroy'
@@ -12,6 +12,7 @@ Dialeto::Application.routes.draw do
   
   resources :token_authentications, :only => [:create, :destroy]
   resources :user, :controller => "user"
+  resources :users
   
   resources :dashboard
 

@@ -1,4 +1,6 @@
 <%= simple_form_for(@categoria, :html => {:multipart => true}) do |f| %>
+	<%= f.error_notification %>
+	
 	<%= f.input :descricao, :label => 'Descrição' %>
 	
 	<%= f.fields_for :images do |builder| %>

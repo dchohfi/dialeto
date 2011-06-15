@@ -1,26 +1,18 @@
 class SessionsController < Devise::SessionsController
-  
   def create
-    logger.info(params)
-    resource = warden.authenticate!(:scope => resource_name)
-    logger.info(resource)
-    logger.info('aqui')
-    return sign_in_and_redirect(resource_name, resource)
-  end
-  
-  def sign_in_and_redirect(resource_or_scope, resource=nil)
-    logger.info('AQUIAQUIAUQI')
-    logger.info('AQUIAQUIAUQI')
-    logger.info('AQUIAQUIAUQI')
-    
-    scope = Devise::Mapping.find_scope!(resource_or_scope)
-    resource ||= resource_or_scope
-    sign_in(scope, resource) unless warden.user(scope) == resource
-    return render :json => current_user.authentication_token
-  end
+    resource = warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#new")
+    set_flash_message(:notice, :signed_in) if is_navigational_format?
+    sign_in(resource_name, resource)
 
-  def failure
-    return render:json => {:success => false, :errors => ["Login failed."]}
+    current_user.reset_authentication_token!
+
+    respond_to do |format|
+      format.html do
+        respond_with resource, :location => redirect_location(resource_name, resource)
+      end
+      format.json do
+        render :json => { :response => 'ok', :auth_token => current_user.authentication_token }.to_json, :status => :ok
+      end
+    end
   end
 end
-
