@@ -14,7 +14,7 @@ class PropagandasController < ApplicationController
   
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render :json => @propagandas.to_json( :methods => [:image_url, :media_url] ) }
+      format.json { render :json => @propagandas }
     end
   end
 
@@ -24,7 +24,7 @@ class PropagandasController < ApplicationController
     @propaganda = Propaganda.find(params[:id])
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render :json => @propaganda.to_json( :methods => [:image_url, :media_url] )  }
+      format.json { render :json => @propaganda }
     end
   end
 

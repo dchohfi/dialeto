@@ -16,4 +16,8 @@ class Image < ActiveRecord::Base
   def image_url
     image.url
   end
+  
+  def as_json(options)
+    super({:methods => [:image_url]})
+  end
 end

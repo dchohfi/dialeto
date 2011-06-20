@@ -10,7 +10,7 @@ class CategoriasController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json  { render :json => @categorias.to_json( :methods => [:images_url] ) }
+      format.json  { render :json => @categorias }
     end
   end
 
@@ -26,7 +26,7 @@ class CategoriasController < ApplicationController
     if @categoria
       respond_to do |format|
         format.html # show.html.erb
-        format.json  { render :json => @categoria.to_json( :methods => [:images_url] ) }
+        format.json  { render :json => @categoria }
       end
     elsif
       respond_to do |format|

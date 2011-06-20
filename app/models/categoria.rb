@@ -13,4 +13,8 @@ class Categoria < ActiveRecord::Base
     images_url
   end
   
+  def as_json(options)
+    super({:methods => [:images_url]})
+  end
+  
 end

@@ -12,7 +12,7 @@ class VideosController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json  { render :json => @videos.to_json }
+      format.json  { render :json => @videos }
     end
   end
 
@@ -26,7 +26,7 @@ class VideosController < ApplicationController
     if @video
       respond_to do |format|
         format.html # show.html.erb
-        format.json  { render :json => @videos.to_json }
+        format.json  { render :json => @videos }
       end
     elsif
       respond_to do |format|

@@ -1,10 +1,16 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <b>Descricao:</b>
   <%= @categoria.descricao %>
 </p>
 
+<p>
+	<b>Imagens:</b>
+	<% @categoria.images.each do |builder| %>		
+		<p>
+			<%= image_tag builder.image_url %>
+		</p>
+	<% end %>
+</p>
 
 <%= link_to 'Edit', edit_categoria_path(@categoria) %> |
 <%= link_to 'Back', categorias_path %>

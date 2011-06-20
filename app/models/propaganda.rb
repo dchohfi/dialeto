@@ -16,7 +16,7 @@ class Propaganda < ActiveRecord::Base
       :bucket => 'dialeto_propaganda'
   
   validates_presence_of :nome, :nome => "Nome não pode ser vazio."
-  validates_uniqueness_of :nome, :message => "Nome já cadastrado."
+  validates_uniqueness_of :nome, :message => "Nome já cadastrado." 
   validates_attachment_presence :image
   validates_attachment_presence :media
   validates_attachment_content_type :image, 
@@ -31,5 +31,9 @@ class Propaganda < ActiveRecord::Base
   
   def media_url
     media.url
+  end
+  
+  def as_json(options)
+    super({:except => [:image_file_name, :image_file_size, :media_file_size, :image_content_type, :media_content_type, :media_file_name, :image_updated_at, :media_updated_at], :methods => [:image_url, :media_url] })
   end
 end

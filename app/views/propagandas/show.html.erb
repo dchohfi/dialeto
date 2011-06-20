@@ -1,11 +1,11 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <b>Nome:</b>
   <%= @propaganda.nome %>
 </p>
 
-<%= image_tag @propaganda.image.url %>
+<p>
+	<%= image_tag @propaganda.image.url %>
+</p>
 
 <%= link_to 'Edit', edit_propaganda_path(@propaganda) %> |
 <%= link_to 'Back', propagandas_path %>
