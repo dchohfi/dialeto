@@ -1,7 +1,7 @@
 <div class="propagandas">
 <% @propagandas.each do |propaganda| %>
   <div class="listagem">
-    <h2><%= link_to propaganda.descricao, propaganda %></h2>
+    <h2><%= link_to propaganda.nome, propaganda %></h2>
     <%= link_to "Edit", edit_propaganda_path(propaganda) %> |
     <%= link_to "Destroy", propaganda, :method => :delete, :confirm => "Are you sure?" %>
   </div>
