@@ -14,6 +14,7 @@ gem 'nifty-generators'
 gem 'aws-s3', :require => 'aws/s3'
 gem 'right_aws'
 gem 'acts-as-taggable-on'
+gem 'jquery-rails'
 
 group :development do
   gem 'rspec-rails', '2.5.0'
