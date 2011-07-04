@@ -11,9 +11,11 @@ class User < ActiveRecord::Base
   def categorias
     categorias = []
     videos.each do |video|
-      video.categorias.each{|categoria| categorias << categoria}
+      video.categorias.each{|categoria| 
+        categorias << categoria unless categorias.index(categoria) != nil
+      }
     end
-    categorias.sort!
+    categorias
   end
  
   def videos

@@ -1,11 +1,24 @@
-<div class="propagandas">
-<% @propagandas.each do |propaganda| %>
-  <div class="listagem">
-    <h2><%= link_to propaganda.descricao, propaganda %></h2>
-    <%= link_to "Edit", edit_propaganda_path(propaganda) %> |
-    <%= link_to "Destroy", propaganda, :method => :delete, :confirm => "Are you sure?" %>
+<h2 class="top-title">Propagandas</h2>
+<div class="Propagandas">
+	<div style="margin:10px 0px 20px 10px">
+		<%= link_to 'Inserir Nova Propaganda', new_propaganda_path, :id => "add-propaganda", :class => "submit button large ui-corner-all" %>
   </div>
-<% end %>
+	<table class="list-table">
+		<thead class="ui-widget-header ui-corner-all">
+			<tr>
+				<th width="100%">Nome</th>
+				<th colspan="4">Ações</th>
+			</tr>
+		</thead>
+		<tbody>    	
+			<% @propagandas.each do |propaganda| %>
+				<tr>
+	       	 <td><%= propaganda.nome %></td>
+           <td><%= link_to "Visualizar", propaganda, :class => "view-record" %></td>
+           <td><%= link_to "Editar", edit_propaganda_path(propaganda), :class => "edit-record" %></td>
+           <td><%= link_to "Deletar", propaganda, :method => :delete, :confirm => "Você tem certeza?", :class => "delete-record" %></td>
+			  </tr>
+			<% end %>
+		</tbody>
+	</table>
 </div>
-</br>
-<%= link_to 'New propaganda', new_propaganda_path, :class => "new" %>

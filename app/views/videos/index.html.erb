@@ -1,11 +1,24 @@
+<h2 class="top-title">Videos</h2>
 <div class="videos">
-<% @videos.each do |video| %>
-  <div class="listagem">
-    <h2><%= link_to video.nome, video %> - <%= video.descricao %></h2>
-    <%= link_to "Edit", edit_video_path(video) %> |
-    <%= link_to "Destroy", video, :method => :delete, :confirm => "Are you sure?" %>
+	<div style="margin:10px 0px 20px 10px">
+		<%= link_to 'Inserir Novo Video', new_video_path, :id => "add-video", :class => "submit button large ui-corner-all" %>
   </div>
-<% end %>
+	<table class="list-table">
+		<thead class="ui-widget-header ui-corner-all">
+			<tr>
+				<th width="100%">Nome</th>
+				<th colspan="4">Ações</th>
+			</tr>
+		</thead>
+		<tbody>    	
+			<% @videos.each do |video| %>
+				<tr>
+	       	 <td><%= video.nome %></td>
+           <td><%= link_to "Visualizar", video, :class => "view-record" %></td>
+           <td><%= link_to "Editar", edit_video_path(video), :class => "edit-record" %></td>
+           <td><%= link_to "Deletar", video, :method => :delete, :confirm => "Você tem certeza?", :class => "delete-record" %></td>
+			  </tr>
+			<% end %>
+		</tbody>
+	</table>
 </div>
-</br>
-<%= link_to 'New video', new_video_path, :class => "new" %>
