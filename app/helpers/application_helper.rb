@@ -4,7 +4,7 @@ module ApplicationHelper
     menu = %w(Perfil Categoria Propaganda Video)
     menu_principal = "<ul class=\"topnav\">"
     menu.each do |item|
-      menu_principal << "<li>" + link_to(item) + "</li>"
+      menu_principal << "<li>" + link_to(item, :controller => item.downcase.pluralize) + "</li>"
     end
 		if can? :manage, @users
 			 	menu_principal << "<li class=\"right\"><a id=\"menu-usuario\" href=\"/dashboard\">Usuários</a></li>"

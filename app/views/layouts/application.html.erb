@@ -15,16 +15,16 @@
 	<% elsif %>
  		<body id="login-body">
 	<% end %>
+		<div id="container">
       <% if user_signed_in? %>
-			<!-- Header -->
         <div id="header">
     			<div id="header-top">
 	         	<div id="top-block-left">
 	          	<p>Bem vindo <%= current_user.email %> [ <%= current_user.role.humanize %> ]</p>
             </div>
             <ul id="top-toolbox">
-							<li><%= link_to "Minha Conta", edit_user_registration_path %></li>
-              <li><%= link_to "Logout", destroy_user_session_path %></li>
+							<li><%= link_to "Minha Conta", edit_user_registration_path, :id => "profile-link" %></li>
+              <li><%= link_to "Logout", destroy_user_session_path, :id => "logout-link" %></li>
             </ul>
 		        <div class="clear"></div>
           </div>
@@ -45,5 +45,6 @@
         <%= content_tag :div, msg, :id => "flash_#{name}" %>
       <% end %>
       <%= yield %>
+		</div>
   </body>
 </html>

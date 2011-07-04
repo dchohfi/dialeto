@@ -1,11 +1,24 @@
+<h2 class="top-title">Perfis</h2>
 <div class="perfis">
-<% @perfis.each do |perfil| %>
-  <div class="listagem">
-    <h2><%= link_to perfil.descricao, perfil %></h2>
-    <%= link_to "Edit", edit_perfil_path(perfil) %> |
-    <%= link_to "Destroy", perfil, :method => :delete, :confirm => "Are you sure?" %>
+	<div style="margin:10px 0px 20px 10px">
+		<%= link_to 'Inserir Novo Perfil', new_perfil_path, :id => "add-perfil", :class => "submit button large ui-corner-all" %>
   </div>
-<% end %>
+	<table class="list-table">
+		<thead class="ui-widget-header ui-corner-all">
+			<tr>
+				<th width="100%">Descrição</th>
+				<th colspan="4">Ações</th>
+			</tr>
+		</thead>
+		<tbody>    	
+			<% @perfis.each do |perfil| %>
+				<tr>
+	       	 <td><%= perfil.descricao %></td>
+           <td><%= link_to "Visualizar", perfil, :class => "view-record" %></td>
+           <td><%= link_to "Editar", edit_perfil_path(perfil), :class => "edit-record" %></td>
+           <td><%= link_to "Deletar", perfil, :method => :delete, :confirm => "Você tem certeza?", :class => "delete-record" %></td>
+			  </tr>
+			<% end %>
+		</tbody>
+	</table>
 </div>
-</br>
-<%= link_to 'New Perfil', new_perfil_path, :class => "new" %>
