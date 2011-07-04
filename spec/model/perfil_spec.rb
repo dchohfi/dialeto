@@ -8,9 +8,7 @@ describe Perfil do
   end
   
   it 'deveria validar a preseça da descrição' do
-    @perfil.should_not be_valid
-    @perfil.should have_at_least(1).error_on(:descricao)
-    @perfil.errors[:descricao].should include("Campo obrigatório")
+    @perfil.should validate_presence_of(:descricao).with_message(/Campo obrigatório/)
   end
   
   it 'deveria salvar com sucesso' do
@@ -29,10 +27,7 @@ describe Perfil do
     @perfil.should be_valid
     perfilInvalido = Perfil.new
     perfilInvalido.descricao = descricao
-    perfilInvalido.should_not be_valid
-    perfilInvalido.should have_at_least(1).error_on(:descricao)
-    perfilInvalido.errors[:descricao].should_not include("Campo obrigatório")
-    perfilInvalido.errors[:descricao].should include("Já cadastrado")
+    perfilInvalido.should validate_uniqueness_of(:descricao).with_message(/Já cadastrado/)
   end
   
 end
