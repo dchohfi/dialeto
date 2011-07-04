@@ -2,9 +2,6 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.7'
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
 gem 'sqlite3'
 gem 'devise'
 gem 'simple_form'
@@ -16,6 +13,9 @@ gem 'right_aws'
 gem 'acts-as-taggable-on'
 gem 'jquery-rails'
 
-group :development do
-  gem 'rspec-rails', '2.5.0'
+group :development, :test do
+	gem 'capybara'
+	gem 'rspec-rails'
+	gem 'cucumber-rails'
+	gem 'database_cleaner'
 end
