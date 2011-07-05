@@ -12,8 +12,8 @@ class Video < ActiveRecord::Base
   has_and_belongs_to_many :categorias, :join_table => "categorias_videos"
   has_and_belongs_to_many :perfis, :join_table => "perfis_videos"
   
-  validates_presence_of :nome, :message => "Digite um nome."
-  validates_uniqueness_of :nome, :message => "Nome duplicado, informe outro."
+  validates_presence_of :nome, :message => "Campo obrigatório"
+  validates_uniqueness_of :nome, :message => "Campo duplicado, informe outro"
   accepts_nested_attributes_for :images, :reject_if => lambda { |t| t['image'].nil? }
   validates_attachment_presence :media
   
@@ -29,7 +29,7 @@ class Video < ActiveRecord::Base
   end
   
   def as_json(options)
-    super(:only => [:created_at, :nome, :updated_at], :methods => [:tag_list, :images_url, :authenticated_media_url], :include => {:categorias => {:only => [:id]}})
+    super(:only => [:created_at, :nome, :updated_at, :descricao, :media_content_type, :media_file_size], :methods => [:tag_list, :images_url, :authenticated_media_url], :include => {:categorias => {:only => [:id]}})
   end
   
 end

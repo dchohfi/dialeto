@@ -27,7 +27,7 @@ describe Perfil do
     @perfil.should be_valid
     perfilInvalido = Perfil.new
     perfilInvalido.descricao = descricao
-    perfilInvalido.should validate_uniqueness_of(:descricao).with_message(/Já cadastrado/)
+    perfilInvalido.should validate_uniqueness_of(:descricao).with_message(/Campo duplicado, informe outro/)
   end
   
 end
