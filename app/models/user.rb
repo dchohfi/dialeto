@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   belongs_to :perfil
+  validates_presence_of :perfil
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable
@@ -16,6 +17,7 @@ class User < ActiveRecord::Base
   end
   
   def categorias
+    perfil.videos.find
     categorias = []
     videos.each do |video|
       video.categorias.each{|categoria| 
