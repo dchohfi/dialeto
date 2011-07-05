@@ -10,7 +10,7 @@ module ApplicationHelper
 			 	menu_principal << "<li class=\"right\"><a id=\"menu-usuario\" href=\"/dashboard\">Usuários</a></li>"
 				menu_principal << "<li class=\"right\">" + link_to("Novo Usuário", new_user_path) + "</li>"
 		end
-    menu_principal << "</ul"
+    menu_principal << "</ul>"
     raw menu_principal
   end
 end

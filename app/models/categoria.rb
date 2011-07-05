@@ -1,8 +1,9 @@
 class Categoria < ActiveRecord::Base
   validates_presence_of :descricao
   validates_uniqueness_of :descricao
+  has_and_belongs_to_many :videos, :join_table => "categorias_videos"
   has_many :images, :as => :owner, :dependent => :destroy
-  
+
   accepts_nested_attributes_for :images, :reject_if => lambda { |t| t['image'].nil? }
 
   has_and_belongs_to_many :propagandas

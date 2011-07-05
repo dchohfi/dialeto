@@ -8,6 +8,13 @@ class User < ActiveRecord::Base
 
   ROLES = %w[admin user]
   
+  def categoria(id_categoria)
+    categorias.each do |categoria|
+      return categoria if categoria.id.equal?(id_categoria.to_i)
+    end
+    return nil
+  end
+  
   def categorias
     categorias = []
     videos.each do |video|
@@ -19,6 +26,7 @@ class User < ActiveRecord::Base
   end
  
   def videos
+    return [] unless perfil
     perfil.videos
   end
     

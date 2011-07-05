@@ -12,6 +12,7 @@ gem 'aws-s3', :require => 'aws/s3'
 gem 'right_aws'
 gem 'acts-as-taggable-on'
 gem 'jquery-rails'
+gem 'meta_where'
 
 group :development, :test do
 	gem 'capybara'

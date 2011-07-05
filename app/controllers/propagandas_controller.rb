@@ -3,9 +3,14 @@ class PropagandasController < ApplicationController
   # GET /propagandas
   # GET /propagandas.json
   def index
-
+    @propagandas = []
     if params[:id_categoria]
-      @propagandas = Categoria.find(params[:id_categoria]).propagandas
+      if can? :manage, Propaganda
+        @propagandas = Categoria.find(params[:id_categoria]).propagandas        
+      else
+        categoria = current_user.categoria(params[:id_categoria])
+        @propagandas = categoria.propagandas unless categoria.nil?
+      end
     elsif can? :manage, Propaganda
       @propagandas = Propaganda.all
     elsif
@@ -47,7 +52,7 @@ class PropagandasController < ApplicationController
     @propaganda = Propaganda.new(params[:propaganda])
     respond_to do |format|
       if @propaganda.save
-        format.html { redirect_to(@propaganda, :notice => 'Propaganda was successfully created.') }
+        format.html { redirect_to(@propaganda, :notice => 'Propaganda criada com sucesso.') }
       else
         format.html { render :action => "new" }
       end
@@ -63,7 +68,7 @@ class PropagandasController < ApplicationController
 
     respond_to do |format|
       if @propaganda.update_attributes(params[:propaganda])
-        format.html { redirect_to(@propaganda, :notice => 'Propaganda was successfully updated.') }
+        format.html { redirect_to(@propaganda, :notice => 'Propaganda atualizada com sucesso.') }
       else
         format.html { render :action => "edit" }
       end
