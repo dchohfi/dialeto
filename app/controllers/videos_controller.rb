@@ -5,17 +5,15 @@ class VideosController < ApplicationController
     @videos = []
     if params[:id_categoria]
       if(can? :manage, Video)
-        Categoria.where(:id => params[:id_categoria]).each do |categoria|
-          @videos += categoria.videos
-        end
+        @videos = Video.videos_da_categoria(params[:id_categoria])
       else
-        categoria = current_user.categoria(params[:id_categoria])
+        categoria = Categoria.categorias_do_usuario(current_user).where(:id => params[:id_categoria]).first
         @videos = categoria.videos unless categoria.nil?
       end
     elsif can? :manage, Video
       @videos = Video.all
     else
-      @videos = current_user.videos
+      @videos = Video.videos_do_usuario(current_user)
     end
 
     respond_to do |format|
@@ -27,8 +25,8 @@ class VideosController < ApplicationController
   def show
     @video = Video.find(params[:id])
 
-    if(!(can? :manage, Video))
-      @video = nil unless current_user.videos.include? @video
+    unless can? :manage, Video
+      @video = nil unless Video.videos_do_usuario.include? @video
     end
 
     if @video

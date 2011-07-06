@@ -8,7 +8,7 @@ class PropagandasController < ApplicationController
       if can? :manage, Propaganda
         @propagandas = Categoria.find(params[:id_categoria]).propagandas        
       else
-        categoria = current_user.categoria(params[:id_categoria])
+        categoria = Categoria.categorias_do_usuario(current_user).where(:id => params[:id_categoria]).first
         @propagandas = categoria.propagandas unless categoria.nil?
       end
     elsif can? :manage, Propaganda

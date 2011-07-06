@@ -5,9 +5,9 @@ class CategoriasController < ApplicationController
     if can? :manage, Categoria
       @categorias = Categoria.all
     elsif
-      @categorias = current_user.categorias
+      @categorias = Categoria.categorias_do_usuario(current_user)
     end
-
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json  { render :json => @categorias }
@@ -20,7 +20,7 @@ class CategoriasController < ApplicationController
     @categoria = Categoria.find(params[:id])
 
     if(!(can? :manage, Categoria))
-      @categoria = nil unless current_user.categorias.include? @categoria
+      @categoria = nil unless Categoria.categorias_do_usuario(current_user).include? @categoria
     end
     
     if @categoria

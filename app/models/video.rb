@@ -1,5 +1,28 @@
 class Video < ActiveRecord::Base
   
+  scope :videos_do_usuario, lambda {|user|
+    {
+      :joins => query_videos_usuarios,
+      :conditions => ["u.id = ?", user], :group => "videos.id"
+    }
+  }
+  
+  scope :videos_dos_usuarios, lambda {|users|
+    {
+      :joins => query_videos_usuarios,
+      :conditions => ["u.id IN (?)", users], :group => "videos.id"
+    }
+  }
+  
+  scope :videos_da_categoria, lambda {|categoria|
+    {
+      :joins => "INNER JOIN categorias_videos cv ON cv.video_id = videos.id " +
+                "INNER JOIN categorias c ON c.id = cv.categoria_id",
+      :conditions => ["c.id = ?", categoria], :group => "videos.id"
+    }
+  }
+    
+  
   has_attached_file :media,
       :storage => :s3,
       :s3_credentials => "#{Rails.root.to_s}/config/s3.yml", :s3_protocol => 'https',
@@ -14,9 +37,26 @@ class Video < ActiveRecord::Base
   
   validates_presence_of :nome, :message => "Campo obrigatório"
   validates_uniqueness_of :nome, :message => "Campo duplicado, informe outro"
-  accepts_nested_attributes_for :images, :reject_if => lambda { |t| t['image'].nil? }
   validates_attachment_presence :media
+  validate :possui_categoria?
+  validate :possui_perfil?
+
+  accepts_nested_attributes_for :images, :reject_if => lambda { |t| t['image'].nil? }
   
+  protected
+  def self.query_videos_usuarios
+    "LEFT JOIN perfis_videos pv ON pv.video_id = videos.id " +
+              "LEFT JOIN perfis p ON pv.perfil_id = p.id " +
+              "LEFT JOIN users u ON u.perfil_id = p.id"
+  end
+  def possui_perfil?
+    errors.add_to_base "Adicione um perfil" if self.perfis.blank?
+  end
+  def possui_categoria?
+    errors.add_to_base "Adicione uma categoria" if self.categorias.blank?
+  end
+  
+  public
   def images_url
     images_url = []
     images.each{|image| images_url << image.image_url}
