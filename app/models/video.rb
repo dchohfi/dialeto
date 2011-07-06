@@ -67,7 +67,7 @@ class Video < ActiveRecord::Base
   end
 
   def authenticated_media_url(options={})
-    options.reverse_merge! :expires_in => 10.minutes, :use_ssl => true
+    options.reverse_merge! :expires_in => 10.minutes, :use_ssl => false
     AWS::S3::S3Object.url_for media.path, media.options[:bucket], options
   end
   
