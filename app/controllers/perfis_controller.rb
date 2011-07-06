@@ -1,5 +1,7 @@
 class PerfisController < ApplicationController
   before_filter :authenticate_user!
+  load_and_authorize_resource
+  
   # GET /perfis
   # GET /perfis.xml
   def index

@@ -7,5 +7,7 @@
 	<%= image_tag @propaganda.image.url %>
 </p>
 
-<%= link_to 'Edit', edit_propaganda_path(@propaganda) %> |
+<% if can? :manage, @propaganda %>
+	<%= link_to 'Edit', edit_propaganda_path(@propaganda) %> |
+<% end %>
 <%= link_to 'Back', propagandas_path %>

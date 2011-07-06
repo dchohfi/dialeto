@@ -13,10 +13,12 @@
 		<tbody>    	
 			<% @propagandas.each do |propaganda| %>
 				<tr>
-	       	 <td><%= propaganda.nome %></td>
-           <td><%= link_to "Visualizar", propaganda, :class => "view-record" %></td>
-           <td><%= link_to "Editar", edit_propaganda_path(propaganda), :class => "edit-record" %></td>
-           <td><%= link_to "Deletar", propaganda, :method => :delete, :confirm => "Você tem certeza?", :class => "delete-record" %></td>
+					<td><%= propaganda.nome %></td>
+					<td><%= link_to "Visualizar", propaganda, :class => "view-record" %></td>
+					<% if can? :manage, @propagandas %>
+						<td><%= link_to "Editar", edit_propaganda_path(propaganda), :class => "edit-record" %></td>
+						<td><%= link_to "Deletar", propaganda, :method => :delete, :confirm => "Você tem certeza?", :class => "delete-record" %></td>
+					<% end %>
 			  </tr>
 			<% end %>
 		</tbody>

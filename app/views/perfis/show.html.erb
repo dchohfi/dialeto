@@ -3,6 +3,7 @@
   <%= @perfil.descricao %>
 </p>
 
-
-<%= link_to 'Edit', edit_perfil_path(@perfil) %> |
+<% if can? :manage, @perfil %>
+	<%= link_to 'Edit', edit_perfil_path(@perfil) %> |
+<% end %>
 <%= link_to 'Back', perfis_path %>

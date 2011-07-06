@@ -11,6 +11,7 @@
 		</p>
 	<% end %>
 </p>
-
-<%= link_to 'Edit', edit_categoria_path(@categoria) %> |
+<% if can? :manage, @categoria %>
+	<%= link_to 'Edit', edit_categoria_path(@categoria) %> |
+<% end %>
 <%= link_to 'Back', categorias_path %>
