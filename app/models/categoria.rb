@@ -3,12 +3,13 @@ class Categoria < ActiveRecord::Base
   
   scope :categorias_do_usuario, lambda {|user|
     {
+      :select => "DISTINCT categorias.*",
       :joins => "LEFT JOIN categorias_videos cv ON cv.categoria_id = categorias.id " +
                 "LEFT JOIN videos v ON cv.video_id = v.id " + 
                 "LEFT JOIN perfis_videos pv ON pv.video_id = v.id " + 
                 "LEFT JOIN perfis p ON pv.perfil_id = p.id " + 
                 "LEFT JOIN users u ON u.perfil_id = p.id",
-      :conditions => ["u.id = ?", user], :group => "categorias.id"
+      :conditions => ["u.id = ?", user]
     }  
   }
   

@@ -2,6 +2,7 @@ class Video < ActiveRecord::Base
   
   scope :videos_do_usuario, lambda {|user|
     {
+      :select => "DISTINCT videos.*",
       :joins => query_videos_usuarios,
       :conditions => ["u.id = ?", user], :group => "videos.id"
     }
@@ -9,6 +10,7 @@ class Video < ActiveRecord::Base
   
   scope :videos_dos_usuarios, lambda {|users|
     {
+      :select => "DISTINCT videos.*",
       :joins => query_videos_usuarios,
       :conditions => ["u.id IN (?)", users], :group => "videos.id"
     }
@@ -16,9 +18,10 @@ class Video < ActiveRecord::Base
   
   scope :videos_da_categoria, lambda {|categoria|
     {
+      :select => "DISTINCT videos.*",
       :joins => "INNER JOIN categorias_videos cv ON cv.video_id = videos.id " +
                 "INNER JOIN categorias c ON c.id = cv.categoria_id",
-      :conditions => ["c.id = ?", categoria], :group => "videos.id"
+      :conditions => ["c.id = ?", categoria]
     }
   }
     
