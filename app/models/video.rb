@@ -72,7 +72,7 @@ class Video < ActiveRecord::Base
   end
   
   def as_json(options)
-    super(:only => [:created_at, :nome, :updated_at, :descricao, :media_content_type, :media_file_size], :methods => [:tag_list, :images_url, :authenticated_media_url], :include => {:categorias => {:only => [:id]}})
+    super(:only => [:created_at, :nome, :updated_at, :descricao, :media_content_type, :media_file_size, :media_file_name], :methods => [:tag_list, :images_url, :authenticated_media_url], :include => {:categorias => {:only => [:id]}})
   end
   
 end

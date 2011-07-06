@@ -34,6 +34,6 @@ class Propaganda < ActiveRecord::Base
   end
   
   def as_json(options)
-    super({:except => [:image_file_name, :image_file_size, :media_file_size, :image_content_type, :media_content_type, :media_file_name, :image_updated_at, :media_updated_at], :methods => [:image_url, :media_url] })
+    super({:except => [:image_updated_at, :media_updated_at], :methods => [:image_url, :media_url] })
   end
 end
