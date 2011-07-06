@@ -13,6 +13,7 @@ gem 'right_aws'
 gem 'acts-as-taggable-on'
 gem 'jquery-rails'
 gem 'meta_where'
+gem 'jammit'
 
 group :development, :test do
 	gem 'capybara'

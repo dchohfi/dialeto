@@ -1,0 +1,7 @@
+javascripts:
+  workspace:
+    - public/javascripts/*.js
+
+stylesheets:
+  common:
+    - public/stylesheets/*.css
