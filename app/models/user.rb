@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   attr_accessor :login
   
   belongs_to :perfil
-  validates_presence_of :perfil
+  validates_presence_of :perfil, :message => "Selecione um perfil"
   validates_inclusion_of :role, :in => %w[admin user editor], :message => "Role %s não está incluso na lista"
   validates_uniqueness_of :username, :message => "Usuário já cadastrado"
   validates_uniqueness_of :email, :message => "Email já cadastrado"
