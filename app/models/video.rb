@@ -25,7 +25,7 @@ class Video < ActiveRecord::Base
   
   has_attached_file :media,
       :storage => :s3,
-      :s3_credentials => "#{Rails.root.to_s}/config/s3.yml", :s3_protocol => 'https',
+      :s3_credentials => "#{Rails.root.to_s}/config/s3.yml"
       :s3_permissions => :private,
       :path => "/:style/:id/:filename",
       :bucket => 'dialeto_video'
