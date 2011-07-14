@@ -4,7 +4,6 @@ class VideosController < ApplicationController
   def index    
     @videos = []
     if params[:id_categoria]
-      categoria
       if(can? :manage, Video)
         categoria = Categoria.find(params[:id_categoria])
       else
