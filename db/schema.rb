@@ -10,12 +10,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110706012138) do
+ActiveRecord::Schema.define(:version => 20110713031113) do
 
   create_table "categorias", :force => true do |t|
     t.string   "descricao"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "nome"
   end
 
   create_table "categorias_propagandas", :id => false, :force => true do |t|
@@ -43,6 +44,7 @@ ActiveRecord::Schema.define(:version => 20110706012138) do
     t.string   "descricao"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "nome"
   end
 
   create_table "perfis_videos", :id => false, :force => true do |t|
@@ -98,6 +100,13 @@ ActiveRecord::Schema.define(:version => 20110706012138) do
     t.integer  "perfil_id"
     t.string   "role"
     t.string   "username"
+    t.string   "nome"
+    t.datetime "nascimento"
+    t.string   "cpf"
+    t.string   "telefone"
+    t.string   "endereco"
+    t.string   "sexo"
+    t.boolean  "locked"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

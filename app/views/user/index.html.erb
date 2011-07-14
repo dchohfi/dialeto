@@ -1,0 +1,49 @@
+<h2 class="top-title">Usuários</h2>
+<% if can? :manage, @users %>	
+	<form method="post" action="#" name="form">
+		<div class="clear"></div>
+		<div style="margin:40px 0px 20px 10px">
+			<%= link_to "Inserir Novo Usuário", new_user_path, :class => "submit button large ui-corner-all" %>
+		</div>
+			<table class="list-table">
+				<thead class="ui-widget-header ui-corner-all">
+			  	<tr>
+	      		<th width="220">Nome</th>
+	          <th width="220">Email</th>
+	          <th width="100">Status</th>
+	          <th width="100">Perfil</th>
+	          <th width="100">Nível</th>
+	          <th colspan="1">Ações</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+					<% @users.each do |user| %>
+						<tr>
+				   		<td><%= user.nome %></td>
+				      <td><%= user.email %></td>
+							<% if user.locked %>
+				      	<td><span class="button submit medium red-back fixed-width-100 ui-corner-all">Suspenso</span></td>
+							<% elsif %>
+								<td><span class="button submit medium green-back fixed-width-100 ui-corner-all">Liberado</span></td>
+							<% end %>
+				      <td><%= user.perfil.descricao %></td>
+				      <td><%= user.role.humanize %></td>
+				      <td><%= link_to "Editar", edit_user_path(user), :class => "edit-record" %></td>
+				    </tr>
+					<% end %>
+				</tbody>
+			</table>
+	</form>
+	<hr /> 
+	<div id="pagination">
+		<a href="#"><img src="images/arrows/arrow_first.png" width="16" height="16" alt="Primeira Página" title="Primeira Página" /></a>
+		<a href="#"><img src="images/arrows/arrow_previous.png" width="16" height="16" alt="Anterior" title="Anterior" /></a>
+		<a href="#">1</a>
+		<span>2</span>
+		<a href="#">3</a>
+		<a href="#"><img src="images/arrows/arrow_next.png" width="16" height="16" alt="Próxima" title="Próxima" /></a>
+		<a href="#"><img src="images/arrows/arrow_last.png" width="16" height="16" alt="Última Página" title="Última Página" /></a>
+	</div>
+<% else %>
+  <p>Não Autorizado</p>
+<% end %>

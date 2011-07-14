@@ -1,7 +1,6 @@
 class PropagandasController < ApplicationController
   before_filter :authenticate_user!  
-  # GET /propagandas
-  # GET /propagandas.json
+  
   def index
     @propagandas = []
     if params[:id_categoria]
@@ -23,8 +22,6 @@ class PropagandasController < ApplicationController
     end
   end
 
-  # GET /propagandas/1
-  # GET /propagandas/1.json
   def show
     @propaganda = Propaganda.find(params[:id])
     respond_to do |format|
@@ -33,7 +30,6 @@ class PropagandasController < ApplicationController
     end
   end
 
-  # GET /propagandas/new
   def new
     @propaganda = Propaganda.new
 
@@ -42,12 +38,10 @@ class PropagandasController < ApplicationController
     end
   end
 
-  # GET /propagandas/1/edit
   def edit
     @propaganda = Propaganda.find(params[:id])
   end
 
-  # POST /propagandas
   def create
     @propaganda = Propaganda.new(params[:propaganda])
     respond_to do |format|
@@ -59,7 +53,6 @@ class PropagandasController < ApplicationController
     end
   end
 
-  # PUT /propagandas/1
   def update
     @propaganda = Propaganda.find(params[:id])
     
@@ -75,7 +68,6 @@ class PropagandasController < ApplicationController
     end
   end
 
-  # DELETE /propagandas/1
   def destroy
     @propaganda = Propaganda.find(params[:id])
     @propaganda.destroy

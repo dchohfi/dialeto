@@ -1,26 +1,25 @@
 <h2 class="top-title">Categorias</h2>
-<div class="categorias">
-	<div style="margin:10px 0px 20px 10px">
-		<%= link_to 'Nova Categoia', new_categoria_path, :id => "add-categoria", :class => "submit button large ui-corner-all" %>
-  </div>
-	<table class="list-table">
-		<thead class="ui-widget-header ui-corner-all">
-			<tr>
-				<th width="100%">Descrição</th>
-				<th colspan="4">Ações</th>
-			</tr>
-		</thead>
-		<tbody>    	
-			<% @categorias.each do |categoria| %>
-				<tr>
-					<td><%= categoria.descricao %></td>
-					<td><%= link_to "Visualizar", categoria, :class => "view-record" %></td>
-					<% if can? :manage, @categorias %>
-						<td><%= link_to "Editar", edit_categoria_path(categoria), :class => "edit-record" %></td>
-						<td><%= link_to "Deletar", categoria, :method => :delete, :confirm => "Você tem certeza?", :class => "delete-record" %></td>
-					<% end %>
-			  </tr>
-			<% end %>
-		</tbody>
-	</table>
+
+<div style="margin:10px 0px 20px 10px">
+	<%= link_to 'Nova Categoia', new_categoria_path, :id => "add-categoria", :class => "submit button large ui-corner-all" %>
 </div>
+<table class="list-table">
+	<thead class="ui-widget-header ui-corner-all">
+		<tr>
+			<th width="100%">Descrição</th>
+			<th colspan="4">Ações</th>
+		</tr>
+	</thead>
+	<tbody>    	
+		<% @categorias.each do |categoria| %>
+		<tr>
+			<td><%= categoria.descricao %></td>
+			<td><%= link_to "Visualizar", categoria, :class => "view-record" %></td>
+			<% if can? :manage, @categorias %>
+				<td><%= link_to "Editar", edit_categoria_path(categoria), :class => "edit-record" %></td>
+				<td><%= link_to "Deletar", categoria, :method => :delete, :confirm => "Você tem certeza?", :class => "delete-record" %></td>
+			<% end %>
+		</tr>
+		<% end %>
+	</tbody>
+</table>

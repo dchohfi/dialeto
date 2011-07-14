@@ -1,4 +1,7 @@
 Dialeto::Application.routes.draw do
+  match 'categorias/auto_complete' => 'categorias#auto_complete'
+  match 'perfis/auto_complete' => 'perfis#auto_complete'
+  
   resources :videos
   resources :propagandas
   resources :categorias
@@ -13,11 +16,12 @@ Dialeto::Application.routes.draw do
   resources :token_authentications, :only => [:create, :destroy]
   resources :user, :controller => "user"
   resources :users
-  
-  resources :dashboard
+  resources :contatos
+
 
   match 'categorias/:id_categoria/propagandas' => 'propagandas#index'
   match 'categorias/:id_categoria/videos' => 'videos#index'
+
 
   root :to => "perfis#index"
 end

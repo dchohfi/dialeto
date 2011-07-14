@@ -1,4 +1,6 @@
 class Video < ActiveRecord::Base
+  attr_reader :categoria_tokens, :perfil_tokens
+  attr_accessible :categoria_tokens, :peperfil_tokens
   
   scope :videos_do_usuario, lambda {|user|
     {
@@ -75,4 +77,10 @@ class Video < ActiveRecord::Base
     super(:only => [:created_at, :nome, :updated_at, :descricao, :media_content_type, :media_file_size, :media_file_name], :methods => [:tag_list, :images_url, :authenticated_media_url], :include => {:categorias => {:only => [:id]}})
   end
   
+  def categoria_tokens=(ids)
+    self.categoria_ids = ids;
+  end
+  def perfil_tokens=(ids)
+    self.perfil_ids = ids
+  end
 end

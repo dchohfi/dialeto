@@ -1,6 +1,28 @@
-<%= simple_form_for @perfil do |f|%>
-	<%= f.error_notification %>
-	
-	<%= f.input :descricao, :label => 'Descrição' %>
-	<%= f.button :submit %>
+<% if @perfil.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@perfil.errors.count, "erro") %> proibiram o perfil de ser salvo.</h2>
+    <ul>
+	    <% @perfil.errors.full_messages.each do |msg| %>
+	      <li><%= msg %></li>
+	    <% end %>
+    </ul>
+  </div>
 <% end %>
+
+<%= form_for @perfil, :html => {:id => "insert-form"}  do |f|%>
+	<div class="form-left">
+		<%= f.label :nome %>
+	</div>
+	<div class="form-right">
+		<%= f.text_field :nome, :class => "txt" %>
+	</div>
+	<div class="form-left">
+		<%= f.label :descricao, "Descrição" %>
+	</div>
+	<div class="form-right">
+		<%= f.text_area :descricao, :class => "txt" %>
+	</div>
+	<div class="clear" style="text-align:right; width:372px">
+		<%= f.submit :submit %>
+	</div>
+<% end -%>

@@ -1,16 +1,42 @@
-<%= simple_form_for(@categoria, :html => {:multipart => true}) do |f| %>
-	<%= f.error_notification %>
+<% if @categoria.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@categoria.errors.count, "erro") %> proibiram a categoria de ser salva.</h2>
+    <ul>
+	    <% @categoria.errors.full_messages.each do |msg| %>
+	      <li><%= msg %></li>
+	    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= simple_form_for @categoria, :html => {:multipart => true, :id => "insert-form"} do |f| %>
 	
-	<%= f.input :descricao, :label => 'Descrição' %>
+	<div class="form-left">
+		<%= f.label :nome, "Nome" %>
+	</div>
+	<div class="form-right">
+		<%= f.text_field :nome %>
+	</div>
+	<div class="form-left">
+		<%= f.label :descricao, "Descrição" %>
+	</div>
+	<div class="form-right">
+		<%= f.text_area :descricao %>
+	</div>
 	
 	<%= f.fields_for :images do |builder| %>
 		<% if builder.object.new_record? %>
-			<p>
-				<%= builder.label :image, "Image File" %>
-				<%= builder.file_field :image %>
-			</p>
+			<div class="form-left">
+				<%= builder.label :image, "Imagem" %>
+			</div>
+			<div class="form-right">
+					<%= builder.file_field :image, :class => "txt", :id => "preview" %>
+	        <span class="inline-help">A imagem precisa ter 448x250 pixels.</span>
+	    </div>
 		<% end %>
 	<% end %>
 	
-	<%= f.button :submit %>
+  <div class="clear" style="text-align:right; width:372px; padding-top: 30px;">
+		<%= f.submit :submit %>
+	</div>
 <% end %>

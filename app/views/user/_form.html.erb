@@ -1,16 +1,104 @@
-<%= f.error_notification %>
+<% if @user.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@user.errors.count, "erro") %> proibiram o usuário de ser salvo.</h2>
+    <ul>
+	    <% @user.errors.full_messages.each do |msg| %>
+	      <li><%= msg %></li>
+	    <% end %>
+    </ul>
+  </div>
+<% end %>
 
-<div class="inputs">
-	<%= f.input :username, :required => true %>
-	<%= f.input :email, :required => true %>
-	<%= f.input :password, :required => true %>
-	<%= f.input :password_confirmation, :label => 'Confirm', :required => true %>
-	<%= f.association :perfil, :label_method => :descricao, :include_blank => false%>
-	<% if can? :manage, @users %>
-	<p><%= f.label :role %><%= f.collection_select :role, User::ROLES, :to_s, :humanize, {:include_blank => false} %></p>
-	<% end %>
+<div class="form-left">
+	<%= f.label :nome %>
+</div>
+<div class="form-right">
+	<%= f.text_field :nome, :class => "txt" %>
+</div>
+<div class="form-left">
+	<%= f.label :email %>
+</div>
+<div class="form-right">
+	<%= f.email_field :email, :require => true, :class => "txt" %>
+</div>
+<div class="form-left">
+	<%= f.label :sexo %>
+</div>
+<div class="form-right">
+	<%= f.collection_select :sexo, User::SEXO, :to_s, :humanize %></p>
+</div>
+<div class="form-left">
+	<%= f.label :nascimento %>
+</div>
+<div class="form-right">
+	<%= f.text_field :nascimento_str %>
+</div>
+<div class="form-left">
+	<%= f.label :cpf %>
+</div>
+<div class="form-right">
+	<%= f.text_field :cpf, :class => "txt" %>	
+</div>
+<div class="form-left">
+	<%= f.label :telefone %>
+</div>
+<div class="form-right">
+	<%= f.text_field :telefone, :class => "txt" %>	
+</div>
+<div class="form-left">
+	<%= f.label :endereco, "Endereço" %>
+</div>
+<div class="form-right">
+	<%= f.text_field :endereco, :class => "txt" %>
+</div>
+<div class="form-left">
+	<%= f.label :username %>
+</div>
+<div class="form-right">
+	<%= f.text_field :username, :class => "txt" %>
+</div>
+<div class="form-left">
+	<%= f.label :password, "Senha" %>
+</div>
+<div class="form-right">
+	<%= f.password_field :password, :class => "txt" %>	
+</div>
+<div class="form-left">
+	<%= f.label :password, "Confirmar" %>
+</div>
+<div class="form-right">
+	<%= f.password_field :password_confirmation, :class => "txt" %>	
+</div>
+<div class="form-left">
+	<%= f.label :perfil %>
+</div>
+<div class="form-right">
+	<%= f.collection_select( :perfil_id, Perfil.order('descricao'), :id, :descricao, {:prompt => false}) %>
+</div>
+<div class="form-left">
+	<%= f.label :role, "Nível de Acesso" %>
+</div>
+<div class="form-right">
+	<%= f.collection_select :role, User::ROLES, :to_s, :humanize, {:include_blank => false} %>
+</div>
+<div class="form-left">
+	<%= f.label :locked, "Desativado" %>
+</div>
+<div class="form-right">
+	<%= f.radio_button(:locked, true) %>Sim
+	<%= f.radio_button(:locked, false) %>Não
 </div>
 
-<div class="actions">
-  <%= f.button :submit %>
+<div class="clear" style="text-align:right; width:372px">
+  <%= f.submit :submit %>
 </div>
+<%= content_for :js do %>
+$(document).ready(function() {
+	$("#user_nascimento").mask("99/99/9999");
+	$("#user_telefone").mask("(99)9999-9999");
+	$('#user_cpf').bind('blur', function(){
+		validaCPF(this);
+	});
+	$("#user_cpf").mask("999.999.999-99");
+});
+<% end %>

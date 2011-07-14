@@ -2,8 +2,14 @@ class PerfisController < ApplicationController
   before_filter :authenticate_user!
   load_and_authorize_resource
   
-  # GET /perfis
-  # GET /perfis.xml
+  def auto_complete
+    @perfis = Perfil.where("nome like ?", "%#{params[:q]}%")
+    
+    respond_to do |format|
+      format.json { render :json => @perfis.map(&:attributes)}
+    end
+  end
+  
   def index
     @perfis = Perfil.all
 
@@ -14,20 +20,6 @@ class PerfisController < ApplicationController
     end
   end
 
-  # GET /perfis/1
-  # GET /perfis/1.xml
-  def show
-    @perfil = Perfil.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @perfil }
-      format.json  { render :json => @perfil }
-    end
-  end
-
-  # GET /perfis/new
-  # GET /perfis/new.xml
   def new
     @perfil = Perfil.new
 
@@ -38,19 +30,16 @@ class PerfisController < ApplicationController
     end
   end
 
-  # GET /perfis/1/edit
   def edit
     @perfil = Perfil.find(params[:id])
   end
 
-  # POST /perfis
-  # POST /perfis.xml
   def create
     @perfil = Perfil.new(params[:perfil])
 
     respond_to do |format|
       if @perfil.save
-        format.html { redirect_to(@perfil, :notice => 'Perfil was successfully created.') }
+        format.html { redirect_to(perfis_path, :notice => 'Perfil criado com sucesso.') }
         format.xml  { render :xml => @perfil, :status => :created, :location => @perfil }
       else
         format.html { render :action => "new" }
@@ -59,14 +48,12 @@ class PerfisController < ApplicationController
     end
   end
 
-  # PUT /perfis/1
-  # PUT /perfis/1.xml
   def update
     @perfil = Perfil.find(params[:id])
 
     respond_to do |format|
       if @perfil.update_attributes(params[:perfil])
-        format.html { redirect_to(@perfil, :notice => 'Perfil was successfully updated.') }
+        format.html { redirect_to(perfis_path, :notice => 'Perfil atualizado com sucesso.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -74,9 +61,7 @@ class PerfisController < ApplicationController
       end
     end
   end
-
-  # DELETE /perfis/1
-  # DELETE /perfis/1.xml
+  
   def destroy
     @perfil = Perfil.find(params[:id])
     @perfil.destroy

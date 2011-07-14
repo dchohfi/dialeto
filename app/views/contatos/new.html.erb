@@ -1,0 +1,54 @@
+<h2 class="top-title">Suporte</h2>
+
+<div class="clear"></div>
+
+<div id="left-panel">
+	<% if @contato.errors.any? %>
+	  <div id="error_explanation">
+	    <h2><%= pluralize(@contato.errors.count, "erro") %> proibiram o email de ser enviado.</h2>
+	    <ul>
+		    <% @contato.errors.full_messages.each do |msg| %>
+		      <li><%= msg %></li>
+		    <% end %>
+	    </ul>
+	  </div>
+	<% end %>
+	
+	<h3 class="ui-tabs-nav ui-widget-header ui-corner-all ">Fale Conosco</h3>
+
+	<% form_for @contato, :html => {:id => "insert-form"} do |f| -%>
+		<div class="form-left2">
+			<%= f.label :nome %>
+		</div>
+		<div class="form-right2">
+			<%= f.text_field :nome, :class => "txt" %>
+		</div>
+		<div class="form-left2">
+			<%= f.label :email %>
+		</div>
+		<div class="form-right2">
+			<%= f.email_field :email, :require => true, :class => "txt" %>
+		</div>
+		<div class="form-left2">
+			<%= f.label :telefone %>
+		</div>
+		<div class="form-right2">
+			<%= f.text_field :telefone, :class => "txt" %>
+		</div>
+		<div class="form-left2">
+			<%= f.label :assunto %>
+		</div>
+		<div class="form-right2">
+			<%= f.text_field :assunto, :class => "txt" %>
+		</div>
+		<div class="form-left2">
+			<%= f.label :mensagem %>
+		</div>
+		<div class="form-right2">
+			<%= f.text_area :mensagem, :class => "txt" %>
+		</div>
+		<div class="clear" style="text-align:right; width:372px">
+			<%= f.submit :submit %>
+		</div>
+	<% end -%>
+</div>

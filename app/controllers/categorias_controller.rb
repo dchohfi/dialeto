@@ -1,6 +1,14 @@
 class CategoriasController < ApplicationController
   before_filter :authenticate_user!
-  # GET /categorias
+
+  def auto_complete
+    @categorias = Categoria.where("nome like ?", "%#{params[:q]}%")
+    
+    respond_to do |format|
+      format.json { render :json => @categorias.map(&:attributes)}
+    end
+  end
+
   def index
     if can? :manage, Categoria
       @categorias = Categoria.all
@@ -14,8 +22,6 @@ class CategoriasController < ApplicationController
     end
   end
 
-  # GET /categorias/1
-  # GET /categorias/1.xml
   def show
     @categoria = Categoria.find(params[:id])
 
@@ -35,8 +41,6 @@ class CategoriasController < ApplicationController
     end
   end
 
-  # GET /categorias/new
-  # GET /categorias/new.xml
   def new
     @categoria = Categoria.new
     images = []
@@ -52,18 +56,15 @@ class CategoriasController < ApplicationController
     end
   end
 
-  # GET /categorias/1/edit
   def edit
     @categoria = Categoria.find(params[:id])
   end
 
-  # POST /categorias
-  # POST /categorias.xml
   def create
     @categoria = Categoria.new(params[:categoria])
     respond_to do |format|
       if @categoria.save
-        format.html { redirect_to(@categoria, :notice => 'Categoria was successfully created.') }
+        format.html { redirect_to(@categoria, :notice => 'Categoria criada com sucesso.') }
         format.xml  { render :xml => @categoria, :status => :created, :location => @categoria }
       else
         format.html { render :action => "new" }
@@ -72,14 +73,12 @@ class CategoriasController < ApplicationController
     end
   end
 
-  # PUT /categorias/1
-  # PUT /categorias/1.xml
   def update
     @categoria = Categoria.find(params[:id])
 
     respond_to do |format|
       if @categoria.update_attributes(params[:categoria])
-        format.html { redirect_to(@categoria, :notice => 'Categoria was successfully updated.') }
+        format.html { redirect_to(@categoria, :notice => 'Categoria atualizada com sucesso.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -88,8 +87,6 @@ class CategoriasController < ApplicationController
     end
   end
 
-  # DELETE /categorias/1
-  # DELETE /categorias/1.xml
   def destroy
     @categoria = Categoria.find(params[:id])
     @categoria.destroy
@@ -99,4 +96,5 @@ class CategoriasController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
 end

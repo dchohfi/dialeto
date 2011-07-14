@@ -6,7 +6,7 @@ describe User do
   subject {Factory(:user)}
   
   it 'não deve cadastrar um usuario sem perfil' do
-    should validate_presence_of(:perfil).with_message(/Selecione um perfil/)
+    should validate_presence_of(:perfil)
   end
   
   it 'não deve cadastrar um usuario sem role' do
@@ -22,7 +22,7 @@ describe User do
   end
   
   it 'não deve cadastrar um usuario com username duplicado' do
-    should validate_uniqueness_of(:username).case_insensitive.with_message(/Usuário já cadastrado/)
+    should validate_uniqueness_of(:username).case_insensitive
   end
   
 end

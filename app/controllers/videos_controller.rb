@@ -4,12 +4,14 @@ class VideosController < ApplicationController
   def index    
     @videos = []
     if params[:id_categoria]
+      categoria
       if(can? :manage, Video)
-        @videos = Video.videos_da_categoria(params[:id_categoria])
+        categoria = Categoria.find(params[:id_categoria])
       else
         categoria = Categoria.categorias_do_usuario(current_user).where(:id => params[:id_categoria]).first
-        @videos = categoria.videos unless categoria.nil?
       end
+      render :status => 404 if categoria.nil?
+      @videos = categoria.videos
     elsif can? :manage, Video
       @videos = Video.all
     else

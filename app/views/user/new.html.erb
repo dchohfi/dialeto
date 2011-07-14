@@ -1,5 +1,5 @@
-<h1>New User</h1>
+<h2 class="top-title">Inserir novo usuário</h2>
 
-<%= simple_form_for @user, :url => user_index_path do |f| %>
+<%= simple_form_for @user, :url => user_index_path, :html => {:id => "insert-form"}   do |f| %>
   <%= render :partial => 'form', :locals => { :f => f } %>
 <% end %>

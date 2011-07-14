@@ -1,0 +1,53 @@
+<div id="container">
+	<div id="header">
+		<div id="header-top">
+			<div id="top-block-left">
+				<p>Bem vindo <%= current_user.email %> [ <%= current_user.role.humanize %> ]</p>
+			</div>
+			<ul id="top-toolbox">
+				<li><%= link_to "Minha Conta", edit_user_registration_path, :id => "profile-link" %></li>
+				<li><%= link_to "Logout", destroy_user_session_path, :id => "logout-link" %></li>
+			</ul>
+			<div class="clear"></div>
+		</div>
+		<div id="header-middle">
+			<%= link_to "LLEDD.TV", root_url, :id => "logo" %>
+		</div>
+		<div id="menu">
+			<ul class="topnav">
+				<li><%= link_to("Perfil", {:controller => "perfis"}, :id => "menu-perfil")%></li>
+				<li><%= link_to("Categoria", {:controller => "categorias"}, :id => "menu-categorias")%></li>
+				<li><%= link_to("Video", {:controller => "videos"}, :id => "menu-videos")%></li>
+				<li><%= link_to("Propaganda", {:controller => "propagandas"}, :id => "menu-propaganda")%></li>
+        <li class="right"><%= link_to ("Suporte", new_contato_path, :id => "menu-suporte") %></li>
+				<% if can? :manage, @users %>
+					<li class="right"><%= link_to("Usuários", user_index_path, :id => "menu-usuario") %></li>
+				<% end %>
+			</ul>
+		</div>
+	</div>
+	<div class="clear"></div>
+	<div id="status">
+		<% flash.each do |name, msg| %>
+		  <%= content_tag :div, msg, :id => "flash_#{name}" %>
+		<% end %>
+	</div>
+	<div id="content">
+		<%= yield %>
+	</div>
+</div>
+<div class="clear"></div>
+<div id="footer-container">
+	<div id="footer">
+		<div id="footer-logo">
+			<p id="copyright">Copyright &copy; 2011 Powered by lledd.tv</p>
+		</div>
+		<ul class="menu">
+			<li><%= link_to "Usuários", user_index_path %></li>
+			<li><%= link_to "Perfil", perfis_path %></li>
+			<li><%= link_to "Categorias", categorias_path %></li>
+			<li><%= link_to "Vídeos", videos_path %></li>
+			<li><%= link_to "Propaganda", propagandas_path %></li>
+		</ul>
+		<div class="clear"></div>
+</div>

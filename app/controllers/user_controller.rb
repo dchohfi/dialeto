@@ -2,7 +2,7 @@ class UserController < ApplicationController
   load_and_authorize_resource
   
   def index
-    @users = User.excludes(:id => current_user.id)
+    @users = User.all.delete_if {|user| user.id == current_user.id}
   end
   
   def new
@@ -12,8 +12,8 @@ class UserController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
-      flash[:notice] = "Successfully created User."
-      redirect_to root_path
+      flash[:notice] = "Usuário criado com sucesso."
+      redirect_to user_index_path
     else
       render :action => 'new'
     end
@@ -23,23 +23,15 @@ class UserController < ApplicationController
     @user = User.find(params[:id])
   end
   
-  def update
+  def update  
     @user = User.find(params[:id])
     params[:user].delete(:password) if params[:user][:password].blank?
-    params[:user].delete(:password_confirmation) if params[:user][:password].blank? and params[:user][:password_confirmation].blank?
+    params[:user].delete(:password_confirmation) if params[:user][:password].blank? and params[:user][:password_confirmation].blank?    
     if @user.update_attributes(params[:user])
-      flash[:notice] = "Successfully updated User."
-      redirect_to root_path
+      flash[:notice] = "Usuário alterado com sucesso."
+      redirect_to user_index_path
     else
       render :action => 'edit'
-    end
-  end
-  
-  def destroy
-    @user = User.find(params[:id])
-    if @user.destroy
-      flash[:notice] = "Successfully deleted User."
-      redirect_to root_path
     end
   end
   

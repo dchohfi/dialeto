@@ -1,25 +1,82 @@
-<%= simple_form_for(@video, :html => {:multipart => true}) do |f| %>
-  <%= f.error_notification %>
+<% if @video.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@video.errors.count, "erro") %> proibiram o video de ser salvo.</h2>
+    <ul>
+	    <% @video.errors.full_messages.each do |msg| %>
+	      <li><%= msg %></li>
+	    <% end %>
+    </ul>
+  </div>
+<% end %>
 
-  <div class="inputs">
-    <%= f.input :nome, :required => true %>
-    <%= f.input :descricao %>
-    <%= f.association :categorias, :label_method => :descricao %>
-		<%= f.association :perfis, :label_method => :descricao %>
-		<%= f.label 'Media'%> <%= f.file_field :media %></br></p>
-		<%= f.input :tag_list, :label => "Tags"%>
-
-		<%= f.fields_for :images do |builder| %>
-			<% if builder.object.new_record? %>
-				<p>
-					<%= builder.label :image, "Image File" %>
-					<%= builder.file_field :image %>
-				</p>
-			<% end %>
+<%= simple_form_for(@video, :html => {:multipart => true, :id => "insert-form"}) do |f| %>
+	<div class="form-left">
+		<%= f.label :nome, "Nome" %>
+	</div>
+	<div class="form-right">
+		<%= f.text_field :nome %>
+	</div>
+	<div class="form-left">
+		<%= f.label :descricao, "Descrição" %>
+	</div>
+	<div class="form-right">
+		<%= f.text_area :descricao %>
+	</div>
+	<div class="form-left">
+		<%= f.label :categoria_tokens, "Categorias" %>
+	</div>
+	<div class="form-right">
+		<%= f.text_field :categoria_tokens, "data-pre" => @video.categorias.map(&:attributes).to_json %>
+	</div>
+	<div class="form-left">
+		<%= f.label :perfil_tokens, "Perfis" %>
+	</div>
+	<div class="form-right">
+		<%= f.text_field :perfil_tokens, "data-pre" => @video.perfis.map(&:attributes).to_json %>
+	</div>
+	<% if @video.new_record? %>
+		<div class="form-left">
+			<%= f.label :media, "Media" %>
+		</div>
+		<div class="form-right">
+			<%= f.file_field :media %>
+			<span class="inline-help">O formato aceito é o .mov com codec H.264.</span>
+		</div>
+	<% end %>
+	<div class="form-left">
+		<%= f.label :tags, "Tags" %>
+	</div>
+	<div class="form-right">
+		<%= f.text_field :tag_list, "style" => "width:395px;" %>
+		<span class="inline-help">Você deve separar as tags por virgula.</span>
+	</div>
+	<%= f.fields_for :images do |builder| %>
+		<% if builder.object.new_record? %>
+			<div class="form-left">
+				<%= builder.label :image, "Imagem" %>
+			</div>
+			<div class="form-right">
+					<%= builder.file_field :image, :class => "txt", :id => "preview" %>
+	        <span class="inline-help">A imagem precisa ter 448x250 pixels.</span>
+	    </div>
 		<% end %>
-  </div>
-
-  <div class="actions">
-    <%= f.button :submit %>
-  </div>
+	<% end %>
+  <div class="clear" style="text-align:right; width:372px; padding-top: 30px;">
+		<%= f.submit :submit %>
+	</div>
+<% end %>
+<%= content_for :js do %>
+$(document).ready(function(){
+	$("#video_categoria_tokens").tokenInput("/categorias/auto_complete.json", {
+		crossDomain: false,
+		prePopulate: $(this).data("pre"),
+    theme: "facebook"
+	});
+	$("#video_perfil_tokens").tokenInput("/perfis/auto_complete.json", {
+		crossDomain: false,
+		prePopulate: $(this).data("pre"),
+    theme: "facebook"
+	});
+	$("#video_nome").focus();
+});
 <% end %>

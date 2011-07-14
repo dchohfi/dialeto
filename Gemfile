@@ -14,6 +14,9 @@ gem 'acts-as-taggable-on'
 gem 'jquery-rails'
 gem 'meta_where'
 gem 'jammit'
+gem 'nokogiri'
+gem 'brazilian-rails'
+gem 'date_validator'
 
 group :development, :test do
 	gem 'capybara'
