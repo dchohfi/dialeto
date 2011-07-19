@@ -1,6 +1,6 @@
 class Video < ActiveRecord::Base
   attr_reader :categoria_tokens, :perfil_tokens
-  attr_accessible :categoria_tokens, :peperfil_tokens
+  attr_accessible :categoria_tokens, :perfil_tokens, :images_attributes, :nome, :media, :tag_list, :descricao
   
   scope :videos_do_usuario, lambda {|user|
     {
@@ -55,10 +55,10 @@ class Video < ActiveRecord::Base
               "LEFT JOIN users u ON u.perfil_id = p.id"
   end
   def possui_perfil?
-    errors.add_to_base "Adicione um perfil" if self.perfis.blank?
+    errors.add_to_base "Adicione um perfil" if self.perfis.blank? or self.perfil_ids.blank?
   end
   def possui_categoria?
-    errors.add_to_base "Adicione uma categoria" if self.categorias.blank?
+    errors.add_to_base "Adicione uma categoria" if self.categorias.blank? or self.categoria_ids.blank?
   end
   
   public

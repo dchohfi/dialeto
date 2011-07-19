@@ -1,11 +1,8 @@
 Dialeto::Application.routes.draw do
   match 'categorias/auto_complete' => 'categorias#auto_complete'
   match 'perfis/auto_complete' => 'perfis#auto_complete'
-  
-  resources :videos
-  resources :propagandas
-  resources :categorias
-  resources :perfis
+  match 'categorias/:id_categoria/propagandas' => 'propagandas#index'
+  match 'categorias/:id_categoria/videos' => 'videos#index'
   
   devise_for :users, :controllers => {:registrations => "registrations", :sessions => "sessions"}
   devise_scope :user do
@@ -17,11 +14,10 @@ Dialeto::Application.routes.draw do
   resources :user, :controller => "user"
   resources :users
   resources :contatos
-
-
-  match 'categorias/:id_categoria/propagandas' => 'propagandas#index'
-  match 'categorias/:id_categoria/videos' => 'videos#index'
-
+  resources :videos
+  resources :propagandas
+  resources :categorias
+  resources :perfis
 
   root :to => "perfis#index"
 end
