@@ -94,7 +94,7 @@
 </div>
 <%= content_for :js do %>
 $(document).ready(function() {
-	$("#user_nascimento").mask("99/99/9999");
+	$("#user_nascimento_str").mask("99/99/9999");
 	$("#user_telefone").mask("(99)9999-9999");
 	$('#user_cpf').bind('blur', function(){
 		validaCPF(this);
