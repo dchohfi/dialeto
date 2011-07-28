@@ -1,23 +1,32 @@
 class PropagandasController < ApplicationController
   before_filter :authenticate_user!  
+  load_and_authorize_resource
   
   def index
-    @propagandas = []
-    if params[:id_categoria]
-      if can? :manage, Propaganda
-        @propagandas = Categoria.find(params[:id_categoria]).propagandas        
-      else
-        categoria = Categoria.categorias_do_usuario(current_user).where(:id => params[:id_categoria]).first
-        @propagandas = categoria.propagandas unless categoria.nil?
-      end
-    elsif can? :manage, Propaganda
+    if can? :manage, Propaganda
       @propagandas = Propaganda.all
-    elsif
+    else
       @propagandas = Propaganda.with_out_categoria
     end
   
     respond_to do |format|
       format.html
+      format.json { render :json => @propagandas }
+    end
+  end
+  
+  def propagandas_da_categoria
+    if can? :manage, Propaganda
+      categoria = Categoria.find(params[:id_categoria])        
+    else
+      categoria = Categoria.categorias_do_usuario(current_user).where(:id => params[:id_categoria]).first
+    end
+    raise ActiveRecord::RecordNotFound.new if categoria.nil?
+    
+    @propagandas = categoria.propagandas
+    
+    respond_to do |format|
+      format.html { render :template => "propagandas/index.html.erb" }
       format.json { render :json => @propagandas }
     end
   end

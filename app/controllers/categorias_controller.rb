@@ -1,5 +1,6 @@
 class CategoriasController < ApplicationController
   before_filter :authenticate_user!
+  load_and_authorize_resource
 
   def auto_complete
     @categorias = Categoria.where("nome like ?", "%#{params[:q]}%")

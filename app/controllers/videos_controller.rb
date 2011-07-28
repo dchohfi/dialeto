@@ -1,24 +1,30 @@
 class VideosController < ApplicationController
   before_filter :authenticate_user!
+  load_and_authorize_resource
 
   def index    
-    @videos = []
-    if params[:id_categoria]
-      if(can? :manage, Video)
-        categoria = Categoria.find(params[:id_categoria])
-      else
-        categoria = Categoria.categorias_do_usuario(current_user).where(:id => params[:id_categoria]).first
-      end
-      render :status => 404 if categoria.nil?
-      @videos = categoria.videos
-    elsif can? :manage, Video
+    if can? :manage, Video
       @videos = Video.all
     else
       @videos = Video.videos_do_usuario(current_user)
     end
-
     respond_to do |format|
       format.html
+      format.json  { render :json => @videos }
+    end
+  end
+  
+  def videos_da_categoria
+    if(can? :manage, Video)
+      categoria = Categoria.find(params[:id_categoria])
+    else
+      categoria = Categoria.categorias_do_usuario(current_user).where(:id => params[:id_categoria]).first
+    end
+    raise ActiveRecord::RecordNotFound.new if categoria.nil?
+    @videos = categoria.videos
+    
+    respond_to do |format|
+      format.html { render :template => "videos/index.html.erb" }
       format.json  { render :json => @videos }
     end
   end
