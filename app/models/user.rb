@@ -4,7 +4,6 @@ class User < ActiveRecord::Base
   
   belongs_to :perfil
   
-  validates :nascimento, :date => {:before => Proc.new { Time.now } }
   validates_presence_of :cpf, :telefone, :nome, :nascimento, :endereco, :sexo, :role, :username, :perfil
   validates_inclusion_of :sexo, :in => %w[masculino feminino]
   validates_inclusion_of :role, :in => %w[admin user editor]
