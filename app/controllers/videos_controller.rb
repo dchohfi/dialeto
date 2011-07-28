@@ -18,7 +18,7 @@ class VideosController < ApplicationController
     end
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.json  { render :json => @videos }
     end
   end
@@ -32,13 +32,11 @@ class VideosController < ApplicationController
 
     if @video
       respond_to do |format|
-        format.html # show.html.erb
+        format.html
         format.json  { render :json => @videos }
       end
     elsif
-      respond_to do |format|
-        format.html { redirect_to(videos_url) }
-      end
+      render :status => 404
     end
   end
 
@@ -51,10 +49,6 @@ class VideosController < ApplicationController
       images << image
     end
     @video.images = images
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @video }
-    end
   end
 
   def edit
@@ -64,14 +58,10 @@ class VideosController < ApplicationController
   def create
     @video = Video.new(params[:video])
     
-    respond_to do |format|
-      if @video.save
-        format.html { redirect_to(@video, :notice => 'Video criado com sucesso.') }
-        format.xml  { render :xml => @video, :status => :created, :location => @video }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @video.errors, :status => :unprocessable_entity }
-      end
+    if @video.save
+      redirect_to(@video, :notice => 'Video criado com sucesso.')
+    else
+      render :action => "new"
     end
   end
 
@@ -79,24 +69,17 @@ class VideosController < ApplicationController
     @video = Video.find(params[:id])
     params[:video].delete(:media) if params[:video][:media].blank?
     
-    respond_to do |format|
-      if @video.update_attributes(params[:video])
-        format.html { redirect_to(@video, :notice => 'Video atualizado com sucesso.') }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @video.errors, :status => :unprocessable_entity }
-      end
+    if @video.update_attributes(params[:video])
+      redirect_to(@video, :notice => 'Video atualizado com sucesso.')
+    else
+      render :action => "edit"
     end
   end
 
   def destroy
     @video = Video.find(params[:id])
     @video.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(videos_url) }
-      format.xml  { head :ok }
-    end
+    
+    redirect_to(videos_url)
   end
 end

@@ -1,3 +1,6 @@
+$(function(){
+   	$("input, textarea, select, button").uniform();
+});
 function validaCPF(cpf)
 {
 	erro = new String;

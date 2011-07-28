@@ -14,8 +14,7 @@ class PerfisController < ApplicationController
     @perfis = Perfil.all
 
     respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @perfis }
+      format.html
       format.json  { render :json => @perfis }
     end
   end
@@ -24,8 +23,7 @@ class PerfisController < ApplicationController
     @perfil = Perfil.new
 
     respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @perfil }
+      format.html
       format.json  { render :json => @perfil }
     end
   end
@@ -36,29 +34,21 @@ class PerfisController < ApplicationController
 
   def create
     @perfil = Perfil.new(params[:perfil])
-
-    respond_to do |format|
-      if @perfil.save
-        format.html { redirect_to(perfis_path, :notice => 'Perfil criado com sucesso.') }
-        format.xml  { render :xml => @perfil, :status => :created, :location => @perfil }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @perfil.errors, :status => :unprocessable_entity }
-      end
+    
+    if @perfil.save
+      redirect_to(perfis_path, :notice => 'Perfil criado com sucesso.')
+    else
+      render :action => "new"
     end
   end
 
   def update
     @perfil = Perfil.find(params[:id])
 
-    respond_to do |format|
-      if @perfil.update_attributes(params[:perfil])
-        format.html { redirect_to(perfis_path, :notice => 'Perfil atualizado com sucesso.') }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @perfil.errors, :status => :unprocessable_entity }
-      end
+    if @perfil.update_attributes(params[:perfil])
+      redirect_to(perfis_path, :notice => 'Perfil atualizado com sucesso.')
+    else
+      render :action => "edit"
     end
   end
   
@@ -66,9 +56,6 @@ class PerfisController < ApplicationController
     @perfil = Perfil.find(params[:id])
     @perfil.destroy
 
-    respond_to do |format|
-      format.html { redirect_to(perfis_url) }
-      format.xml  { head :ok }
-    end
+    redirect_to(perfis_url)
   end
 end

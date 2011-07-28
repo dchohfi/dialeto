@@ -17,7 +17,7 @@ class PropagandasController < ApplicationController
     end
   
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.json { render :json => @propagandas }
     end
   end
@@ -25,17 +25,13 @@ class PropagandasController < ApplicationController
   def show
     @propaganda = Propaganda.find(params[:id])
     respond_to do |format|
-      format.html # show.html.erb
+      format.html
       format.json { render :json => @propaganda }
     end
   end
 
   def new
     @propaganda = Propaganda.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-    end
   end
 
   def edit
@@ -44,12 +40,11 @@ class PropagandasController < ApplicationController
 
   def create
     @propaganda = Propaganda.new(params[:propaganda])
-    respond_to do |format|
-      if @propaganda.save
-        format.html { redirect_to(@propaganda, :notice => 'Propaganda criada com sucesso.') }
-      else
-        format.html { render :action => "new" }
-      end
+    
+    if @propaganda.save
+      redirect_to(@propaganda, :notice => 'Propaganda criada com sucesso.')
+    else
+      render :action => "new"
     end
   end
 
@@ -59,21 +54,16 @@ class PropagandasController < ApplicationController
     params[:propaganda].delete(:media) if params[:propaganda][:media].blank?
     params[:propaganda].delete(:image) if params[:propaganda][:image].blank?
 
-    respond_to do |format|
-      if @propaganda.update_attributes(params[:propaganda])
-        format.html { redirect_to(@propaganda, :notice => 'Propaganda atualizada com sucesso.') }
-      else
-        format.html { render :action => "edit" }
-      end
+    if @propaganda.update_attributes(params[:propaganda])
+      redirect_to(@propaganda, :notice => 'Propaganda atualizada com sucesso.')
+    else
+      render :action => "edit"
     end
   end
 
   def destroy
     @propaganda = Propaganda.find(params[:id])
     @propaganda.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(propagandas_url) }
-    end
+    redirect_to(propagandas_url)
   end
 end

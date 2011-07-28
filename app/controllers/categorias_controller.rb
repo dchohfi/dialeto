@@ -17,7 +17,7 @@ class CategoriasController < ApplicationController
     end
     
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.json  { render :json => @categorias }
     end
   end
@@ -31,7 +31,7 @@ class CategoriasController < ApplicationController
     
     if @categoria
       respond_to do |format|
-        format.html # show.html.erb
+        format.html
         format.json  { render :json => @categoria }
       end
     elsif
@@ -51,8 +51,7 @@ class CategoriasController < ApplicationController
     end
     @categoria.images = images
     respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @categoria }
+      format.html
     end
   end
 
@@ -65,10 +64,8 @@ class CategoriasController < ApplicationController
     respond_to do |format|
       if @categoria.save
         format.html { redirect_to(@categoria, :notice => 'Categoria criada com sucesso.') }
-        format.xml  { render :xml => @categoria, :status => :created, :location => @categoria }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @categoria.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -79,10 +76,8 @@ class CategoriasController < ApplicationController
     respond_to do |format|
       if @categoria.update_attributes(params[:categoria])
         format.html { redirect_to(@categoria, :notice => 'Categoria atualizada com sucesso.') }
-        format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @categoria.errors, :status => :unprocessable_entity }
       end
     end
   end

@@ -66,17 +66,15 @@
 	</div>
 <% end %>
 <%= content_for :js do %>
-$(document).ready(function(){
-	$("#video_categoria_tokens").tokenInput("/categorias/auto_complete.json", {
-		crossDomain: false,
-		prePopulate: $(this).data("pre"),
-    theme: "facebook"
-	});
-	$("#video_perfil_tokens").tokenInput("/perfis/auto_complete.json", {
-		crossDomain: false,
-		prePopulate: $(this).data("pre"),
-    theme: "facebook"
-	});
-	$("#video_nome").focus();
+$("#video_categoria_tokens").tokenInput("/categorias/auto_complete.json", {
+	crossDomain: false,
+	prePopulate: $(this).data("pre"),
+  theme: "facebook"
 });
+$("#video_perfil_tokens").tokenInput("/perfis/auto_complete.json", {
+	crossDomain: false,
+	prePopulate: $(this).data("pre"),
+  theme: "facebook"
+});
+$("#video_nome").focus();
 <% end %>
