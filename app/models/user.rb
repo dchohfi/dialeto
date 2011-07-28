@@ -5,12 +5,11 @@ class User < ActiveRecord::Base
   belongs_to :perfil
   
   validates :nascimento, :date => {:before => Proc.new { Time.now } }
-  validates_presence_of :cpf, :telefone, :nome, :nascimento, :endereco, :sexo, :role, :telefone, :username
-  validates_presence_of :perfil, :message => "Selecione um perfil"
-  validates_inclusion_of :sexo, :in => %w[masculino feminino], :message => "Sexo %s não está incluso na lista"
-  validates_inclusion_of :role, :in => %w[admin user editor], :message => "Role %s não está incluso na lista"
-  validates_uniqueness_of :username, :case_sensitive => false, :message => "Usuário já cadastrado"
-  validates_uniqueness_of :email, :case_sensitive => false, :message => "Email já cadastrado"
+  validates_presence_of :cpf, :telefone, :nome, :nascimento, :endereco, :sexo, :role, :username, :perfil
+  validates_inclusion_of :sexo, :in => %w[masculino feminino]
+  validates_inclusion_of :role, :in => %w[admin user editor]
+  validates_uniqueness_of :username, :case_sensitive => false
+  validates_uniqueness_of :email, :case_sensitive => false
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable

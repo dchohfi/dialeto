@@ -5,16 +5,9 @@ describe Perfil do
   
   subject {Factory(:perfil)}
   
-  it 'deveria validar a preseça da descrição' do
-    should validate_presence_of(:descricao)
-  end
-  
-  it 'deveria validar a preseça do nome' do
-    should validate_presence_of(:nome)
-  end
-  
-  it 'não deveria salvar com a mesma descrição' do
-    should validates_uniqueness_of(:nome)
-  end
+  it { should validate_presence_of(:descricao) }
+  it { should validate_presence_of(:nome) }
+  it { should validate_uniqueness_of(:nome).case_insensitive }
+  it { should have_many(:users) }
   
 end

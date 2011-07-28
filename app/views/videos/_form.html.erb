@@ -51,7 +51,7 @@
 		<span class="inline-help">Você deve separar as tags por virgula.</span>
 	</div>
 	<%= f.fields_for :images do |builder| %>
-		<% if builder.object.new_record? %>
+		<% if @video.new_record? %>
 			<div class="form-left">
 				<%= builder.label :image, "Imagem" %>
 			</div>

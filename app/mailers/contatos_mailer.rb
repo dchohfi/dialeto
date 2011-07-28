@@ -3,6 +3,6 @@ class ContatosMailer < ActionMailer::Base
   
   def novo_contato(contato)
     @contato = contato
-    mail(:to => "dchohfi@gmail.com", :subject => contato.assunto)
+    mail(:to => contato.email, :subject => contato.assunto)
   end
 end

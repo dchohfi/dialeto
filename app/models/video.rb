@@ -40,11 +40,9 @@ class Video < ActiveRecord::Base
   has_and_belongs_to_many :categorias, :join_table => "categorias_videos"
   has_and_belongs_to_many :perfis, :join_table => "perfis_videos"
   
-  validates_presence_of :nome, :message => "Campo obrigatório"
-  validates_uniqueness_of :nome, :message => "Campo duplicado, informe outro"
+  validates_presence_of :nome, :perfis, :categorias, :images
+  validates_uniqueness_of :nome, :case_sensitive => false
   validates_attachment_presence :media
-  validate :possui_categoria?
-  validate :possui_perfil?
 
   accepts_nested_attributes_for :images, :reject_if => lambda { |t| t['image'].nil? }
   
@@ -53,12 +51,6 @@ class Video < ActiveRecord::Base
     "LEFT JOIN perfis_videos pv ON pv.video_id = videos.id " +
               "LEFT JOIN perfis p ON pv.perfil_id = p.id " +
               "LEFT JOIN users u ON u.perfil_id = p.id"
-  end
-  def possui_perfil?
-    errors.add_to_base "Adicione um perfil" if self.perfis.blank? or self.perfil_ids.blank?
-  end
-  def possui_categoria?
-    errors.add_to_base "Adicione uma categoria" if self.categorias.blank? or self.categoria_ids.blank?
   end
   
   public

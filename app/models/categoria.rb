@@ -13,7 +13,7 @@ class Categoria < ActiveRecord::Base
     }  
   }
   
-  validates_presence_of :descricao, :nome
+  validates_presence_of :descricao, :nome, :images
   validates_uniqueness_of :nome
   has_and_belongs_to_many :videos, :join_table => "categorias_videos"
   has_many :images, :as => :owner, :dependent => :destroy
