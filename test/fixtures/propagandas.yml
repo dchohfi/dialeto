@@ -1,9 +1,0 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-one:
-  local_path: MyString
-  nome: MyString
-
-two:
-  local_path: MyString
-  nome: MyString
