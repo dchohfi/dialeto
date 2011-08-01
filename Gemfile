@@ -16,6 +16,7 @@ gem 'jquery-rails', '~> 1.0.12'
 gem 'nokogiri', '~> 1.5.0'
 gem 'brazilian-rails', '~> 3.0.4'
 gem "rake", "~> 0.8.7"
+gem "panda", ">= 1.0.0"
 
 group :development, :test do
 	gem 'json', "~> 1.5.3"
