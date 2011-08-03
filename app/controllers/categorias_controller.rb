@@ -3,7 +3,7 @@ class CategoriasController < ApplicationController
   load_and_authorize_resource
 
   def auto_complete
-    @categorias = Categoria.where("nome like ?", "%#{params[:q]}%")
+    @categorias = Categoria.where("lower(nome) like ?", "%#{params[:q]}%")
     
     respond_to do |format|
       format.json { render :json => @categorias.map(&:attributes)}

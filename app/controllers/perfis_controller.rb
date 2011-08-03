@@ -3,7 +3,7 @@ class PerfisController < ApplicationController
   load_and_authorize_resource
   
   def auto_complete
-    @perfis = Perfil.where("nome like ?", "%#{params[:q]}%")
+    @perfis = Perfil.where("lower(nome) like ?", "%#{params[:q]}%")
     
     respond_to do |format|
       format.json { render :json => @perfis.map(&:attributes)}
