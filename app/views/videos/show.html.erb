@@ -16,8 +16,8 @@
 	<%= @video.authenticated_media_url %>
 </p>
 <% if @original_video.status == "success" %>
-  <video id="movie" width="<%= @h264_encoding.width %>" height="<%= @h264_encoding.height %>" preload="none" 
-    poster="<%= @h264_encoding.screenshots.first %>" controls>
+  <video id="movie" width="<%= @encoded_video.width %>" height="<%= @encoded_video.height %>" preload="none" 
+    poster="<%= @encoded_video.screenshots.first %>" controls>
     <source src="<%= @video.authenticated_media_url %>" type="video/mp4">
   </video>
 <% end %>

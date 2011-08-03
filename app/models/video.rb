@@ -31,6 +31,10 @@ class Video < ActiveRecord::Base
       self.status = 'pending'
     end
   end
+  
+  def panda_video
+    @panda_video ||= Panda::Video.find(panda_video_id)
+  end
 
   def images_url
     images_url = []

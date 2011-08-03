@@ -63,8 +63,7 @@ class VideosController < ApplicationController
       @video = nil unless Video.videos_do_usuario.include? @video
     end
     
-    @original_video = @video.panda_video
-    @h264_encoding = @original_video.encodings.first
+    @encoded_video = @video.panda_video.encodings.first
 
     if @video
       respond_to do |format|
