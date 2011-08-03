@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable
 
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :perfil_id, :role, :username, :login, :endereco, :telefone, :nome, :nascimento, :sexo, :cpf, :nascimento_str, :locked
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :perfil_id, :role, :username, :login, :endereco, :telefone, :nome, :nascimento, :sexo, :cpf, :nascimento_str, :locked, :perfil
 
   ROLES = %w[admin user editor]
   SEXO = %w[masculino feminino]
