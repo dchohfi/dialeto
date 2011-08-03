@@ -78,7 +78,6 @@ class VideosController < ApplicationController
 
   def new
     @video = Video.new
-    video.status = 'pending'
     images = []
     3.times do
       image = Image.new
