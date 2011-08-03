@@ -35,13 +35,13 @@
 		<%= f.text_field :perfil_tokens, "data-pre" => @video.perfis.map(&:attributes).to_json %>
 	</div>
 	<% if @video.new_record? %>
-		<div class="form-left">
-			<%= f.label :media, "Media" %>
-		</div>
-		<div class="form-right">
-			<%= f.file_field :media %>
-			<span class="inline-help">O formato aceito é o .mov com codec H.264.</span>
-		</div>
+			<div class="form-left">
+				<label>Media</label>
+			</div>
+			<div class="form-right">
+				<input type="hidden" name="video[panda_video_id]" id="returned_video_id" />
+			  <div id="upload_progress" class="panda_upload_progress"></div>
+			</div>
 	<% end %>
 	<div class="form-left">
 		<%= f.label :tags, "Tags" %>
@@ -66,6 +66,10 @@
 	</div>
 <% end %>
 <%= content_for :js do %>
+<% auth_params = Panda.signed_params('post', "/videos.json") %>
+$("#returned_video_id").pandaUploader(<%=raw auth_params.to_json %>, {
+  upload_progress_id: 'upload_progress'
+});
 $("#video_categoria_tokens").tokenInput("/categorias/auto_complete.json", {
 	crossDomain: false,
 	prePopulate: $(this).data("pre"),

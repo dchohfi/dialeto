@@ -1,6 +1,8 @@
 class VideosController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => :validate_video
+  protect_from_forgery :except => :validate_video
   load_and_authorize_resource
+  skip_authorize_resource :only => :validate_video
 
   def index    
     if can? :manage, Video
@@ -28,6 +30,31 @@ class VideosController < ApplicationController
       format.json  { render :json => @videos }
     end
   end
+  
+  def validate_video
+    params_validated = params['event'] && params['event'] == 'video-encoded' && params['video_id'] && !params['video_id'].blank?
+    if params_validated
+      video = Video.find_by_panda_video_id(params['video_id'])
+      if video
+        panda_video = Panda::Video.find(video.panda_video_id)
+        encoded_video = panda_video.encodings.first
+
+        video.original_file_name = panda_video.original_filename
+        video.content_type = encoded_video.extname
+        video.file_size = encoded_video.height
+        video.file_name = panda_video.path
+        video.status = 'completed'
+        
+        if video.save!
+          render :nothing => true, :status => 200
+        else
+          render :nothing => true, :status => 500
+        end
+        return
+      end
+    end
+    render :nothing => true, :status => 200
+  end
 
   def show
     @video = Video.find(params[:id])
@@ -35,6 +62,9 @@ class VideosController < ApplicationController
     unless can? :manage, Video
       @video = nil unless Video.videos_do_usuario.include? @video
     end
+    
+    @original_video = @video.panda_video
+    @h264_encoding = @original_video.encodings.find_by_profile_name("h264")
 
     if @video
       respond_to do |format|
@@ -48,6 +78,7 @@ class VideosController < ApplicationController
 
   def new
     @video = Video.new
+    video.status = 'pending'
     images = []
     3.times do
       image = Image.new

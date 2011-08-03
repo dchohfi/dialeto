@@ -33,3 +33,5 @@ Dialeto::Application.configure do
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
 end
+
+ENV['PANDASTREAM_URL'] = "http://7f2cfb09412806bfc3d3:5c96d78be4741cf74c94@api.pandastream.com:80/6d2fa325f33dc950bbc74235c11b7384"

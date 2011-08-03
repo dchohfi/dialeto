@@ -3,6 +3,7 @@ Dialeto::Application.routes.draw do
   match 'perfis/auto_complete' => 'perfis#auto_complete'
   match 'categorias/:id_categoria/propagandas' => 'propagandas#propagandas_da_categoria'
   match 'categorias/:id_categoria/videos' => 'videos#videos_da_categoria'
+  match 'videos/validate_video' => 'videos#validate_video'
   
   devise_for :users, :controllers => {:registrations => "registrations", :sessions => "sessions"}
   devise_scope :user do

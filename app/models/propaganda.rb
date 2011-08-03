@@ -17,7 +17,7 @@ class Propaganda < ActiveRecord::Base
       :path => "/:style/:id/:filename",
       :bucket => 'dialeto_propaganda'
   
-  validates_presence_of :nome, :categorias
+  validates_presence_of :nome
   validates_uniqueness_of :nome, :case_sensitive => false
   validates_attachment_presence :image
   validates_attachment_presence :media

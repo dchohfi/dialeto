@@ -1,6 +1,4 @@
 class Categoria < ActiveRecord::Base
-  has_many :users, :through => :categorias_do_usuario
-  
   scope :categorias_do_usuario, lambda {|user|
     {
       :select => "DISTINCT categorias.*",

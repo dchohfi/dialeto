@@ -10,5 +10,8 @@ describe Image do
                     allowing("image/jpeg", "image/png", "image/gif").
                     rejecting('text/plain', 'text/xml') }
   
+  it "image_url deve ser igual a url da imagem" do
+    subject.image_url.should == subject.image.url
+  end
   
 end

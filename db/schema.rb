@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110713031113) do
+ActiveRecord::Schema.define(:version => 20110803155214) do
 
   create_table "categorias", :force => true do |t|
     t.string   "descricao"
@@ -118,10 +118,12 @@ ActiveRecord::Schema.define(:version => 20110713031113) do
     t.string   "descricao"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "media_file_name"
-    t.string   "media_content_type"
-    t.integer  "media_file_size"
-    t.datetime "media_updated_at"
+    t.string   "status"
+    t.string   "panda_video_id"
+    t.string   "content_type"
+    t.string   "file_size"
+    t.string   "file_name"
+    t.string   "original_file_name"
   end
 
 end
