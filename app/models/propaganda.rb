@@ -21,6 +21,9 @@ class Propaganda < ActiveRecord::Base
   validates_uniqueness_of :nome, :case_sensitive => false
   validates_attachment_presence :image
   validates_attachment_presence :media
+  validates_attachment_content_type :media, 
+                                    :content_type => ["image/jpeg", "image/png", "image/gif"], 
+                                    :message => "Formato de arquivo não suportado."
   validates_attachment_content_type :image, 
                                     :content_type => ["image/jpeg", "image/png", "image/gif"], 
                                     :message => "Formato de arquivo não suportado."

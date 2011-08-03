@@ -8,6 +8,12 @@ describe Propaganda do
   it { should validate_attachment_presence(:image) }
   it { should have_attached_file(:media) }
   it { should validate_attachment_presence(:media) }
+  it { should validate_attachment_content_type(:image).
+                    allowing("image/jpeg", "image/png", "image/gif").
+                    rejecting('text/plain', 'text/xml') }
+  it { should validate_attachment_content_type(:media).
+                    allowing("image/jpeg", "image/png", "image/gif").
+                    rejecting('text/plain', 'text/xml') }
   
   it "deveria procurar as propagandas sem categoria" do
     propaganda_com_categoria = subject
