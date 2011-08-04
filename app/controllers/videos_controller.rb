@@ -42,7 +42,7 @@ class VideosController < ApplicationController
         video.original_file_name = panda_video.original_filename
         video.content_type = encoded_video.extname
         video.file_size = encoded_video.height
-        video.file_name = panda_video.path
+        video.file_name = encoded_video.path
         video.status = 'completed'
         
         if video.save!
@@ -63,9 +63,8 @@ class VideosController < ApplicationController
       @video = nil unless Video.videos_do_usuario.include? @video
     end
     
-    @encoded_video = @video.panda_video.encodings.first
-
     if @video
+      @encoded_video = @video.panda_video.encodings.first
       respond_to do |format|
         format.html
         format.json  { render :json => @videos }
