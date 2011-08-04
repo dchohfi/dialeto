@@ -66,10 +66,12 @@
 	</div>
 <% end %>
 <%= content_for :js do %>
-<% auth_params = Panda.signed_params('post', "/videos.json") %>
-$("#returned_video_id").pandaUploader(<%=raw auth_params.to_json %>, {
-  upload_progress_id: 'upload_progress'
-});
+<% if @video.new_record? %>
+	<% auth_params = Panda.signed_params('post', "/videos.json") %>
+	$("#returned_video_id").pandaUploader(<%=raw auth_params.to_json %>, {
+	  upload_progress_id: 'upload_progress'
+	});
+<% end %>
 $("#video_categoria_tokens").tokenInput("/categorias/auto_complete.json", {
 	crossDomain: false,
 	prePopulate: $(this).data("pre"),
