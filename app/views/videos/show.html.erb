@@ -12,10 +12,7 @@
 	<b>Categorias:</b>
 	<%= @video.categorias.count %>
 </p>
-<p>
-	<%= @video.authenticated_media_url %>
-</p>
-<% if @video.status == "success" %>
+<% if @video.completed? %>
   <video id="movie" width="<%= @encoded_video.width %>" height="<%= @encoded_video.height %>" preload="none" 
     poster="<%= @encoded_video.screenshots.first %>" controls>
     <source src="<%= @video.authenticated_media_url %>" type="video/mp4">
