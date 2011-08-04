@@ -44,6 +44,7 @@ class Video < ActiveRecord::Base
 
   def authenticated_media_url(options={})
     return unless completed?
+    check_s3_connection
     options.reverse_merge! :expires_in => 10.minutes, :use_ssl => false
     AWS::S3::S3Object.url_for file_name << content_type, 'dialeto_video', options
   end
@@ -62,5 +63,13 @@ class Video < ActiveRecord::Base
   
   def completed?
     self.status == 'completed'
+  end
+  
+  private
+  def check_s3_connection
+    if !AWS::S3::Base.connected?
+      yml = YAML.load(File.read("config/s3.yml"))
+      AWS::S3::Base.establish_connection!(:access_key_id => yml['access_key_id'], :secret_access_key => yml['secret_access_key'])
+    end
   end
 end
