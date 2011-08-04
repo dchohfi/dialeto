@@ -8,7 +8,7 @@ class VideosController < ApplicationController
     if can? :manage, Video
       @videos = Video.all
     else
-      @videos = Video.videos_do_usuario(current_user)
+      @videos = Video.videos_do_usuario(current_user).where(:status => 'completed')
     end
     respond_to do |format|
       format.html
@@ -23,7 +23,7 @@ class VideosController < ApplicationController
       categoria = Categoria.categorias_do_usuario(current_user).where(:id => params[:id_categoria]).first
     end
     raise ActiveRecord::RecordNotFound.new if categoria.nil?
-    @videos = categoria.videos
+    @videos = categoria.videos.find_all{ |video| video.completed? }
     
     respond_to do |format|
       format.html { render :template => "videos/index.html.erb" }
