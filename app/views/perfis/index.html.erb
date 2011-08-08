@@ -1,36 +1,24 @@
 <h2 class="top-title">Perfis</h2>
-<form method="post" action="#" name="form">
-  <div class="clear"></div><!-- Clear floatting -->
-	<div style="margin:10px 0px 20px 10px">
-		<%= link_to 'Inserir Novo Perfil', new_perfil_path, :id => "add-perfil", :class => "submit button large ui-corner-all" %>
-	</div>
-	<table class="list-table">
-		<thead class="ui-widget-header ui-corner-all">
-			<tr>
-				<th width="100%">Nome</th>
-				<th colspan="4">Ações</th>
-			</tr>
-		</thead>
-		<tbody>    	
-			<% @perfis.each do |perfil| %>
-				<tr>
-					<td><%= perfil.nome %></td>
-					<% if can? :manage, @perfis %>
-						<td><%= link_to "Editar", edit_perfil_path(perfil), :class => "edit-record" %></td>
-						<td><%= link_to "Deletar", perfil, :method => :delete, :confirm => "Você tem certeza?", :class => "delete-record" %></td>
-					<% end %>
-			  </tr>
-			<% end %>
-		</tbody>
-	</table>
-</form>
-<hr />
-<div id="pagination">
-	<a href="#"><img src="images/arrows/arrow_first.png" width="16" height="16" alt="Primeira Página" title="Primeira Página" /></a>
-	<a href="#"><img src="images/arrows/arrow_previous.png" width="16" height="16" alt="Anterior" title="Anterior" /></a>
-	<a href="#">1</a>
-	<span>2</span>
-	<a href="#">3</a>
-	<a href="#"><img src="images/arrows/arrow_next.png" width="16" height="16" alt="Próxima" title="Próxima" /></a>
-	<a href="#"><img src="images/arrows/arrow_last.png" width="16" height="16" alt="Última Página" title="Última Página" /></a>
+<div class="clear"></div>
+<div style="margin:10px 0px 20px 10px">
+	<%= link_to 'Inserir Novo Perfil', new_perfil_path, :id => "add-perfil", :class => "submit button large ui-corner-all" %>
 </div>
+<table class="list-table">
+	<thead class="ui-widget-header ui-corner-all">
+		<tr>
+			<th width="100%">Nome</th>
+			<th colspan="4">Ações</th>
+		</tr>
+	</thead>
+	<tbody>    	
+		<% @perfis.each do |perfil| %>
+			<tr>
+				<td><%= perfil.nome %></td>
+				<% if can? :manage, @perfis %>
+					<td><%= link_to "Editar", edit_perfil_path(perfil), :class => "edit-record" %></td>
+					<td><%= link_to "Deletar", perfil, :method => :delete, :confirm => "Você tem certeza?", :class => "delete-record" %></td>
+				<% end %>
+		  </tr>
+		<% end %>
+	</tbody>
+</table>
