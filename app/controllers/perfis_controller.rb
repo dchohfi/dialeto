@@ -21,11 +21,6 @@ class PerfisController < ApplicationController
 
   def new
     @perfil = Perfil.new
-
-    respond_to do |format|
-      format.html
-      format.json  { render :json => @perfil }
-    end
   end
 
   def edit
@@ -55,7 +50,6 @@ class PerfisController < ApplicationController
   def destroy
     @perfil = Perfil.find(params[:id])
     @perfil.destroy
-
     redirect_to(perfis_url)
   end
 end

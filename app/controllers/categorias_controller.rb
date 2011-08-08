@@ -51,9 +51,6 @@ class CategoriasController < ApplicationController
       images << image
     end
     @categoria.images = images
-    respond_to do |format|
-      format.html
-    end
   end
 
   def edit
@@ -62,35 +59,29 @@ class CategoriasController < ApplicationController
 
   def create
     @categoria = Categoria.new(params[:categoria])
-    respond_to do |format|
-      if @categoria.save
-        format.html { redirect_to(@categoria, :notice => 'Categoria criada com sucesso.') }
-      else
-        format.html { render :action => "new" }
-      end
+
+    if @categoria.save
+      redirect_to(@categoria, :notice => 'Categoria criada com sucesso.')
+    else
+      render :action => "new"
     end
   end
 
   def update
     @categoria = Categoria.find(params[:id])
 
-    respond_to do |format|
-      if @categoria.update_attributes(params[:categoria])
-        format.html { redirect_to(@categoria, :notice => 'Categoria atualizada com sucesso.') }
-      else
-        format.html { render :action => "edit" }
-      end
+    if @categoria.update_attributes(params[:categoria])
+      redirect_to(@categoria, :notice => 'Categoria atualizada com sucesso.')
+    else
+      render :action => "edit"
     end
   end
 
   def destroy
     @categoria = Categoria.find(params[:id])
     @categoria.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(categorias_url) }
-      format.xml  { head :ok }
-    end
+    
+    redirect_to(categorias_url)
   end
 
 end

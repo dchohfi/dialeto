@@ -48,5 +48,6 @@ Factory.define :video do |video|
   video.perfis {[Factory(:perfil)]}
   video.panda_video_id '1234'
   video.status 'pending'
+  video.sequence(:tag_list) {|n| "tag#{n}"}
   video.images {[Factory(:image)]}
 end

@@ -41,7 +41,7 @@ class VideosController < ApplicationController
 
         video.original_file_name = panda_video.original_filename
         video.content_type = encoded_video.extname
-        video.file_size = encoded_video.height
+        video.file_size = encoded_video.file_size
         video.file_name = encoded_video.path
         video.status = 'completed'
         
@@ -76,13 +76,12 @@ class VideosController < ApplicationController
 
   def new
     @video = Video.new
-    images = []
+    @video.images = []
     3.times do
       image = Image.new
       image.owner = @video
-      images << image
+      @video.images << image
     end
-    @video.images = images
   end
 
   def edit
