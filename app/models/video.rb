@@ -54,11 +54,11 @@ class Video < ActiveRecord::Base
   end
   
   def categoria_tokens=(ids)
-    self.categoria_ids = ids;
+    self.categoria_ids = ids.split(",")
   end
   
   def perfil_tokens=(ids)
-    self.perfil_ids = ids
+    self.perfil_ids = ids.split(",")
   end
   
   def completed?

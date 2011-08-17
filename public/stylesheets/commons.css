@@ -10,6 +10,11 @@
 
 /************ LOGIN PAGE *************/
 
+.categorias, .bsmSelect{
+	width:150px;padding:5px;
+}
+
+p.clr, .clr { clear:both; padding:0; margin:0; background:none;}
 
 #login-body{
 	background:#FEFEFE url('../images/structure/login_bg.png') repeat-x;
@@ -115,8 +120,9 @@ div#remember-me a{
 
 #login-title h1{
 	background:url('../images/structure/logo_login.png') no-repeat;
-	width:348px;
+	width:350px;
 	height:120px;
+	padding-top: 20px;
 	margin:0px auto;
 	text-indent:-9999px;
 }

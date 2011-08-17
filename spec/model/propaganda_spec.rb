@@ -32,9 +32,10 @@ describe Propaganda do
     subject.media_url.should == subject.media.url
   end
   
-  it "deve setar o campo categorias_d" do
-    subject.categoria_tokens = [1]
-    subject.categoria_ids.should =~ [1]
+  it "deve setar o campo categorias_id" do
+    Factory(:categoria)
+    subject.categoria_tokens = "1,2"
+    subject.categoria_ids.should =~ [1, 2]
   end
   
   it "deveria conter todos os campos json" do

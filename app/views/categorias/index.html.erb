@@ -6,14 +6,14 @@
 <table class="list-table">
 	<thead class="ui-widget-header ui-corner-all">
 		<tr>
-			<th width="100%">Descrição</th>
+			<th width="100%">Nome</th>
 			<th colspan="4">Ações</th>
 		</tr>
 	</thead>
 	<tbody>    	
 		<% @categorias.each do |categoria| %>
 		<tr>
-			<td><%= categoria.descricao %></td>
+			<td><%= categoria.nome %></td>
 			<td><%= link_to "Visualizar", categoria, :class => "view-record" %></td>
 			<% if can? :manage, @categorias %>
 				<td><%= link_to "Editar", edit_categoria_path(categoria), :class => "edit-record" %></td>

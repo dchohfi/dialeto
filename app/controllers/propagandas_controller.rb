@@ -49,7 +49,7 @@ class PropagandasController < ApplicationController
 
   def create
     @propaganda = Propaganda.new(params[:propaganda])
-    
+        
     if @propaganda.save
       redirect_to(@propaganda, :notice => 'Propaganda criada com sucesso.')
     else
@@ -59,7 +59,7 @@ class PropagandasController < ApplicationController
 
   def update
     @propaganda = Propaganda.find(params[:id])
-    
+        
     params[:propaganda].delete(:media) if params[:propaganda][:media].blank?
     params[:propaganda].delete(:image) if params[:propaganda][:image].blank?
 

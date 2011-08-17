@@ -2,7 +2,7 @@
 	<div id="header">
 		<div id="header-top">
 			<div id="top-block-left">
-				<p>Bem vindo <%= current_user.email %> [ <%= current_user.role.humanize %> ]</p>
+				<p>Bem vindo <%= current_user.nome %> [ <%= current_user.role.humanize %> ]</p>
 			</div>
 			<ul id="top-toolbox">
 				<li><%= link_to "Minha Conta", edit_user_registration_path, :id => "profile-link" %></li>

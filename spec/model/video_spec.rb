@@ -51,13 +51,15 @@ describe Video do
    end
    
    it "deve setar o campo de categoria_ids" do
-     subject.categoria_tokens = [1]
-     subject.categoria_ids.should =~ [1]
+     Factory(:categoria)
+     subject.categoria_tokens = "1,2"
+     subject.categoria_ids.should =~ [1,2]
    end
    
    it "deve setar o campo perfil_ids" do
-     subject.perfil_tokens = [1]
-     subject.perfil_ids.should =~ [1]
+     Factory(:perfil)
+     subject.perfil_tokens = "1,2"
+     subject.perfil_ids.should =~ [1,2]
    end
    
    it "deve encontrar o video do usuario" do

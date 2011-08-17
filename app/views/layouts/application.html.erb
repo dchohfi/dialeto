@@ -9,6 +9,9 @@
 		<%= javascript_include_tag 'jquery.maskedinput-1.3.min' %>
 		<%= javascript_include_tag 'jquery.tokeninput' %>
 		<%= javascript_include_tag 'jquery.panda-uploader.min.js' %>
+		<% if content_for? :js_file %>
+			<%= yield :js_file %>		
+		<% end %>
     <%= csrf_meta_tag %>
     <%= yield(:head) %>
   </head>
@@ -28,8 +31,8 @@
 				<% end %>
 				<%= yield %>
       <% end %>
-		<script type="text/javascript">
+			<script type="text/javascript">
 			<%= yield :js %>
-		</script>
+			</script>
   </body>
 </html>

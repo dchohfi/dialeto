@@ -1,7 +1,7 @@
 # encoding: utf-8
 class Propaganda < ActiveRecord::Base
   attr_reader :categoria_tokens
-  attr_accessible :categoria_tokens, :nome, :image, :media, :categorias, :categoria_ids
+  attr_accessible :categoria_tokens, :nome, :image, :media
   
   scope :with_out_categoria, where("#{quoted_table_name}.id NOT IN (SELECT `categorias_propagandas`.propaganda_id FROM `categorias_propagandas`)")
     
@@ -43,6 +43,6 @@ class Propaganda < ActiveRecord::Base
   end
   
   def categoria_tokens=(ids)
-    self.categoria_ids = ids;
+    self.categoria_ids = ids.split(",")
   end
 end
