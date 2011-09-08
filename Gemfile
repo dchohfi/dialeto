@@ -23,7 +23,7 @@ group :development, :test do
 	gem 'pathy', "~> 0.0.4"
 	gem 'rspec-rails', "~> 2.6.1"
 	gem 'shoulda-matchers', '~> 1.0.0.beta3'
-  gem "spork", "~> 0.9.0.rc9"
+  	gem "spork", "~> 0.9.0.rc9"
 	gem "test_notifier", "~> 0.3.6", :require => "test_notifier/runner/rspec"
 	gem 'database_cleaner', "~> 0.6.7"
 	gem 'factory_girl_rails', '~> 1.1.0' 

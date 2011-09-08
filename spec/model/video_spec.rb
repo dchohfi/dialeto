@@ -64,6 +64,9 @@ describe Video do
    
    it "deve encontrar o video do usuario" do
      video = Factory(:video)
+     Factory(:video)
+     Factory(:video)
+     
      user = Factory(:user, :perfil => video.perfis.first)
      outro_video = Factory(:video, :perfis => [Factory(:perfil)])
      

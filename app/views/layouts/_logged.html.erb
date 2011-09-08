@@ -19,7 +19,7 @@
 				<li><%= link_to("Categoria", {:controller => "categorias"}, :id => "menu-categorias")%></li>
 				<li><%= link_to("Video", {:controller => "videos"}, :id => "menu-videos")%></li>
 				<li><%= link_to("Propaganda", {:controller => "propagandas"}, :id => "menu-propaganda")%></li>
-        <li class="right"><%= link_to ("Suporte", new_contato_path, :id => "menu-suporte") %></li>
+        		<li class="right"><%= link_to("Suporte", new_contato_path, :id => "menu-suporte") %></li>
 				<% if can? :manage, @users %>
 					<li class="right"><%= link_to("Usuários", user_index_path, :id => "menu-usuario") %></li>
 				<% end %>

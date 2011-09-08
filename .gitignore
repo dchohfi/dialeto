@@ -4,3 +4,15 @@ log/*.log
 tmp/
 public/javascripts/all.js
 public/stylesheets/all.css
+.idea/.generators
+.idea/.name
+.idea/.rakeTasks
+.idea/dialeto.iml
+.idea/dictionaries/dchohfi.xml
+.idea/encodings.xml
+.idea/inspectionProfiles/Project_Default.xml
+.idea/inspectionProfiles/profiles_settings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/workspace.xml
