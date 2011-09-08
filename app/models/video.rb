@@ -4,7 +4,7 @@ class Video < ActiveRecord::Base
 
   scope :videos_do_usuario, lambda {|user|
     {
-      :select => "DISTINCT videos.*",
+      :select => "DISTINCT videos.id, videos.nome, videos.descricao, videos.created_at, videos.updated_at, videos.status, videos.panda_video_id, videos.content_type, videos.file_size, videos.file_name, videos.original_file_name",
       :joins => "LEFT JOIN perfis_videos pv ON pv.video_id = videos.id " +
                 "LEFT JOIN perfis p ON pv.perfil_id = p.id " +
                 "LEFT JOIN users u ON u.perfil_id = p.id",
