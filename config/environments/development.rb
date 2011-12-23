@@ -27,5 +27,5 @@ Dialeto::Application.configure do
   config.gem 'aws-s3', :lib => 'aws/s3'
 end
 
-ENV['PANDASTREAM_URL'] = "http://7f2cfb09412806bfc3d3:5c96d78be4741cf74c94@api.pandastream.com:80/6d2fa325f33dc950bbc74235c11b7384"
+ENV['PANDASTREAM_URL'] = "http://00376f7a9f79d7d2603d:c5796cc672b274344874@api.pandastream.com:443/6a4b5b7b8658d3881ecf277679b5d019"
 
